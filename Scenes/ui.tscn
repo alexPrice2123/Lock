@@ -1,9 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cli8n3lygnumt"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_wviqb"]
-font_size = 126
-outline_size = 30
-outline_color = Color(0, 0, 0, 1)
+[gd_scene format=3 uid="uid://cli8n3lygnumt"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -13,14 +8,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.998
-anchor_bottom = 0.265
-offset_right = 0.303955
-offset_bottom = 0.279984
-text = "SUPER EPIC GAME"
-label_settings = SubResource("LabelSettings_wviqb")
-horizontal_alignment = 1
-vertical_alignment = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
