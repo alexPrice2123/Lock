@@ -1,12 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://dg5fjork7lwwo"]
 
 [ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_xrekv"]
+[ext_resource type="PackedScene" uid="uid://ce1cubbiggye2" path="res://Assets/3D/cardboardsafe.blend" id="2_k8se0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jsg5"]
 albedo_color = Color(0.487662, 0.487662, 0.487662, 1)
 metallic = 1.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_xrekv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8se0"]
 emission_enabled = true
@@ -22,11 +21,6 @@ size = Vector3(1.05, 1.05, 1.05)
 [node name="Safe" type="CharacterBody3D"]
 script = ExtResource("1_xrekv")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00163424, 0.00154623, 0.000760436)
-material_override = SubResource("StandardMaterial3D_3jsg5")
-mesh = SubResource("BoxMesh_xrekv")
-
 [node name="Glow" type="MeshInstance3D" parent="."]
 visible = false
 material_override = SubResource("StandardMaterial3D_3jsg5")
@@ -41,3 +35,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.744856, 0)
 visible = false
 billboard = 1
 text = "Click To Select"
+
+[node name="Box" parent="." instance=ExtResource("2_k8se0")]
+transform = Transform3D(-4.58987e-08, 0, -1.05004, 0, 1.05004, 0, 1.05004, 0, -4.58987e-08, 0, 0, 0)
