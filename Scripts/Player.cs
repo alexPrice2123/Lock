@@ -9,12 +9,14 @@ public partial class Player : CharacterBody3D
 	public const float BobAmp = 0.06f;               // Amplitude of camera head-bob
 	public float CamSense = 0.002f;                  // Camera mouse sensitivity
     public float TurnSense = 0.008f;                  // Camera mouse sensitivity
+    private Vector2 _lastMousePosition;
 
 	// --- NODE REFERENCES ---
     private Node3D _head;                            // Player head node (handles rotation)
 	private Camera3D _cam;                           // Player camera node
     private RayCast3D _ray;
     private Node3D _holdPosition;
+    private Quaternion _startHoldRotation;
     private RayCast3D _mouseRay;
 
 	// --- VARIABLES ---
@@ -31,6 +33,7 @@ public partial class Player : CharacterBody3D
         _ray = GetNode<RayCast3D>("Head/Camera3D/Ray");
         _holdPosition = GetNode<Node3D>("Head/Camera3D/HoldPosition");
         _mouseRay = GetNode<RayCast3D>("MouseRay");
+        _startHoldRotation = _holdPosition.GlobalTransform.Basis.GetRotationQuaternion();
     }
 
     // --- INPUT HANDLER ---
@@ -46,14 +49,39 @@ public partial class Player : CharacterBody3D
             camRot.X = Mathf.Clamp(camRot.X, Mathf.DegToRad(-80f), Mathf.DegToRad(80f));
             _cam.Rotation = camRot;
 
-
+            _lastMousePosition = motion.Position;
+        }
+        else if (@event is InputEventMouseMotion lMotion && Input.MouseMode == Input.MouseModeEnum.Visible && !Input.IsMouseButtonPressed(MouseButton.Right))
+        {
+            _lastMousePosition = lMotion.Position;
+            GD.Print(_lastMousePosition);
         }
         else if (@event is InputEventMouseMotion rMotion && Input.MouseMode == Input.MouseModeEnum.Visible && _holdingItem == true)
         {
             if (Input.IsMouseButtonPressed(MouseButton.Right))
             {
-                _lastSeen.RotateY(rMotion.Relative.X * TurnSense);
-                _lastSeen.RotateX(rMotion.Relative.Y * TurnSense);
+                //_lastSeen.RotateObjectLocal(Vector3.Up, rMotion.Relative.X * TurnSense);
+                //_lastSeen.RotateObjectLocal(Vector3.Right, -rMotion.Relative.Y * TurnSense);
+
+                //_lastSeen.RotateY(rMotion.Relative.X * TurnSense);
+                //_lastSeen.RotateX(rMotion.Relative.Y * TurnSense);
+
+                if (_lastSeen is Safe safe)
+                {
+                    // Create a new rotation quaternion for a small rotation around the local Y-axis
+                    Vector2 mouseDelta = rMotion.Position - _lastMousePosition;
+
+                    Quaternion yawRotation = new Quaternion(Vector3.Up, mouseDelta.X * TurnSense);
+                    Quaternion pitchRotation = new Quaternion(GlobalTransform.Basis.X, mouseDelta.Y * TurnSense);
+                    Quaternion newRotation = yawRotation * pitchRotation * GlobalTransform.Basis.GetRotationQuaternion();
+
+                    // Combine the rotations. Multiplying rotationDelta * currentRotation applies rotationDelta
+                    // relative to the object's local axes.
+                    Quaternion newTotalRotation = _startHoldRotation * newRotation;
+
+                    // Apply the new rotation to the node's GlobalTransform
+                    _holdPosition.GlobalTransform = new Transform3D(new Basis(newTotalRotation), _holdPosition.GlobalTransform.Origin);
+                }
             }
         }
 
@@ -110,7 +138,7 @@ public partial class Player : CharacterBody3D
                 _lastSeen = safe;
             }
         }
-        else if (_lastSeen != null)
+        else if (_lastSeen != null && _holdingItem == false)
         {
             CharacterBody3D targetNode = _lastSeen;
            if (targetNode is Safe safe)
@@ -123,10 +151,11 @@ public partial class Player : CharacterBody3D
 
         if (_holdingItem == true)
         {
-            _lastSeen.GlobalPosition = _lastSeen.GlobalPosition.Lerp(_holdPosition.GlobalPosition, 1f);
+            _lastSeen.GlobalPosition = _lastSeen.GlobalPosition.Lerp(_holdPosition.GlobalPosition, (float)delta * 5f);
+            _lastSeen.GlobalRotation = _lastSeen.GlobalRotation.Lerp(_holdPosition.GlobalRotation, (float)delta * 5f);
             _lastSeen.GetNode<Label3D>("Prompt").Visible = false;
             Vector2 mousePosition = GetViewport().GetMousePosition();
-            GD.Print(mousePosition);
+            //GD.Print(mousePosition);
             _mouseRay.GlobalPosition = new Vector3(mousePosition.X, mousePosition.Y, GlobalPosition.Z);
         }
 
