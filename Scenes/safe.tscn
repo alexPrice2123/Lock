@@ -15,7 +15,7 @@ emission_energy_multiplier = 2.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_3jsg5"]
 flip_faces = true
-size = Vector3(1.1, 1.1, 1.1)
+size = Vector3(1.05, 1.05, 1.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3jsg5"]
 
