@@ -55,6 +55,7 @@ public partial class Player : CharacterBody3D
         {
             _lastMousePosition = lMotion.Position;
             GD.Print(_lastMousePosition);
+            _startHoldRotation = _holdPosition.GlobalTransform.Basis.GetRotationQuaternion();
         }
         else if (@event is InputEventMouseMotion rMotion && Input.MouseMode == Input.MouseModeEnum.Visible && _holdingItem == true)
         {
@@ -152,7 +153,8 @@ public partial class Player : CharacterBody3D
         if (_holdingItem == true)
         {
             _lastSeen.GlobalPosition = _lastSeen.GlobalPosition.Lerp(_holdPosition.GlobalPosition, (float)delta * 5f);
-            _lastSeen.GlobalRotation = _lastSeen.GlobalRotation.Lerp(_holdPosition.GlobalRotation, (float)delta * 5f);
+            //_lastSeen.GlobalRotation = _lastSeen.GlobalRotation.Lerp(_holdPosition.GlobalRotation, (float)delta * 5f);
+            _lastSeen.GlobalRotation = _holdPosition.GlobalRotation;
             _lastSeen.GetNode<Label3D>("Prompt").Visible = false;
             Vector2 mousePosition = GetViewport().GetMousePosition();
             //GD.Print(mousePosition);
