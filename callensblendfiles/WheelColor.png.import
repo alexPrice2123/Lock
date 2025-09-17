@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dma2dm7nfajbj"
-path.s3tc="res://.godot/imported/CombinationLock_CombinationLock_baselock_BaseColor.png-290485fd55081cf84eeb7828c826218b.s3tc.ctex"
+uid="uid://dfu8clctctgp6"
+path.s3tc="res://.godot/imported/WheelColor.png-2fd60024c826c566d8decfe2c1847ae6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "076dad2ed6b4501b8339a78f6df26c31"
+"md5": "8713be5120fcac3e68d748cd8697fb92"
 }
 
 [deps]
 
-source_file="res://callensblendfiles/CombinationLock_CombinationLock_baselock_BaseColor.png"
-dest_files=["res://.godot/imported/CombinationLock_CombinationLock_baselock_BaseColor.png-290485fd55081cf84eeb7828c826218b.s3tc.ctex"]
+source_file="res://callensblendfiles/WheelColor.png"
+dest_files=["res://.godot/imported/WheelColor.png-2fd60024c826c566d8decfe2c1847ae6.s3tc.ctex"]
 
 [params]
 

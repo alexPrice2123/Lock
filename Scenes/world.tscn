@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://blr4dcq2lhte6"]
+[gd_scene load_steps=9 format=3 uid="uid://blr4dcq2lhte6"]
 
 [ext_resource type="PackedScene" uid="uid://dy0qk0th8hsaf" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="Texture2D" uid="uid://s23de3yrx33n" path="res://Assets/2D/icon.svg" id="1_go701"]
 [ext_resource type="PackedScene" uid="uid://dg5fjork7lwwo" path="res://Scenes/safe.tscn" id="3_5a7ea"]
+[ext_resource type="PackedScene" uid="uid://brlp7ii2olwqo" path="res://callensblendfiles/CombinationLock.blend" id="4_8j60k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a02cp"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -36,12 +37,20 @@ use_collision = true
 size = Vector3(50, 0.36, 50)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18433, 0.449612, 0.488464)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.04588, 0.449612, 4.50291)
 use_collision = true
-size = Vector3(13.7231, 1.89887, 15.0289)
+size = Vector3(8, 1.89887, 7)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.36509, 1.13743, 6.10219)
+use_collision = true
+size = Vector3(2.38354, 3.27451, 2.43793)
 
 [node name="Player" parent="." instance=ExtResource("1_a02cp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26777, 2.37205, 11.0858)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26777, 1.83364, 11.0858)
 
 [node name="Safe" parent="." instance=ExtResource("3_5a7ea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80792, 3.30606, 6.22235)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26553, 3.30606, 6.22235)
+
+[node name="CombinationLock" parent="." instance=ExtResource("4_8j60k")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.13535, 1.5741, 7.78289)
