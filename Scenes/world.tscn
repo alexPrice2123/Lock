@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://blr4dcq2lhte6"]
+[gd_scene load_steps=9 format=3 uid="uid://blr4dcq2lhte6"]
 
 [ext_resource type="PackedScene" uid="uid://dy0qk0th8hsaf" path="res://Scenes/player.tscn" id="1_a02cp"]
 [ext_resource type="Texture2D" uid="uid://s23de3yrx33n" path="res://Assets/2D/icon.svg" id="1_go701"]
 [ext_resource type="PackedScene" uid="uid://dg5fjork7lwwo" path="res://Scenes/safe.tscn" id="3_5a7ea"]
+[ext_resource type="PackedScene" uid="uid://brlp7ii2olwqo" path="res://callensblendfiles/CombinationLock.blend" id="4_8j60k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a02cp"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -45,3 +46,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26777, 2.37205, 11.0858)
 
 [node name="Safe" parent="." instance=ExtResource("3_5a7ea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80792, 1.89905, 6.22235)
+
+[node name="CombinationLock" parent="." instance=ExtResource("4_8j60k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.37136, 1.5814, 2.31796)
