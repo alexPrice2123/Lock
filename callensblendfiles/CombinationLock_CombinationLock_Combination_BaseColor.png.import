@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s23de3yrx33n"
-path.s3tc="res://.godot/imported/icon.svg-1710820fed7696f6462aa2a3772ef894.s3tc.ctex"
+uid="uid://dfu8clctctgp6"
+path.s3tc="res://.godot/imported/CombinationLock_CombinationLock_Combination_BaseColor.png-753b3d80dcdd0ad63c100d4776ff2c1c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "8713be5120fcac3e68d748cd8697fb92"
+}
 
 [deps]
 
-source_file="res://Assets/2D/icon.svg"
-dest_files=["res://.godot/imported/icon.svg-1710820fed7696f6462aa2a3772ef894.s3tc.ctex"]
+source_file="res://callensblendfiles/CombinationLock_CombinationLock_Combination_BaseColor.png"
+dest_files=["res://.godot/imported/CombinationLock_CombinationLock_Combination_BaseColor.png-753b3d80dcdd0ad63c100d4776ff2c1c.s3tc.ctex"]
 
 [params]
 
@@ -33,6 +36,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=0
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
