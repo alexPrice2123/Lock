@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b6nbycyj4d4st"]
+
+[ext_resource type="Texture2D" uid="uid://dfu8clctctgp6" path="res://callensblendfiles/WheelColor.png" id="1_bvty5"]
+[ext_resource type="Texture2D" uid="uid://qkm1c3lq3cnw" path="res://callensblendfiles/WheelRoughness.png" id="2_bvty5"]
+
+[resource]
+albedo_texture = ExtResource("1_bvty5")
+roughness_texture = ExtResource("2_bvty5")
