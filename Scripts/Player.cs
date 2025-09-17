@@ -136,18 +136,6 @@ public partial class Player : CharacterBody3D
         Vector3 velocity = Velocity;
 
         // --- Movement input ---
-        Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_back");
-        Vector3 direction = (_head.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-        if (direction != Vector3.Zero && _holdingItem == false)
-        {
-            velocity.X = direction.X * Speed;
-            velocity.Z = direction.Z * Speed;
-        }
-        else
-        {
-            velocity = velocity.Lerp(new Vector3(0f, velocity.Y, 0f), (float)delta * 10f);
-        }
-
         if (GetMouseCollision() != null)
         {
             CharacterBody3D targetNode = GetMouseCollision();
@@ -278,9 +266,6 @@ public partial class Player : CharacterBody3D
         _bobTime += (float)delta * velocity.Length() * (Convert.ToInt32(IsOnFloor()) + 0.2f);
         camTransformGoal.Origin = HeadBob(_bobTime);
         _cam.Transform = camTransformGoal;
-
-        // --- Gravity ---
-        if (!IsOnFloor()) { velocity += GetGravity() * (float)delta; }
 
         // --- Apply movement ---
         Velocity = velocity;

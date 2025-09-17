@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cli8n3lygnumt" path="res://Scenes/ui.tscn" id="2_cvnsp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
-height = 4.0
+height = 1.20183
 
 [sub_resource type="Animation" id="Animation_6t5aa"]
 length = 0.001
@@ -36,6 +36,7 @@ _data = {
 script = ExtResource("1_v0iea")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24053, 0)
 shape = SubResource("CapsuleShape3D_f60y1")
 debug_color = Color(0, 0, 0, 1)
 
