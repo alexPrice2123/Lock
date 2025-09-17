@@ -18,6 +18,13 @@ public partial class Player : CharacterBody3D
     private Node3D _holdPosition;
     private Quaternion _startHoldRotation;
     private RayCast3D _mouseRay;
+    private Control _ui;
+    private Button _leftButton;
+    private Button _rightButton;
+    private Button _downButton;
+    private Button _upButton;
+    public int tweenTimer;
+
 
 	// --- VARIABLES ---
     private float _bobTime = 0.0f;                   // Time accumulator for head-bob effect
@@ -33,6 +40,12 @@ public partial class Player : CharacterBody3D
         _ray = GetNode<RayCast3D>("Head/Camera3D/Ray");
         _holdPosition = GetNode<Node3D>("Head/Camera3D/HoldPosition");
         _mouseRay = GetNode<RayCast3D>("MouseRay");
+        _leftButton = GetNode<Button>("UI/TurnLeft");
+        _rightButton = GetNode<Button>("UI/TurnRight");
+        _downButton = GetNode<Button>("UI/TurnDown");
+        _upButton = GetNode<Button>("UI/TurnUp");
+        _ui = GetNode<Control>("UI");
+
         _startHoldRotation = _holdPosition.GlobalTransform.Basis.GetRotationQuaternion();
     }
 
@@ -57,7 +70,7 @@ public partial class Player : CharacterBody3D
             GD.Print(_lastMousePosition);
             _startHoldRotation = _holdPosition.GlobalTransform.Basis.GetRotationQuaternion();
         }
-        else if (@event is InputEventMouseMotion rMotion && Input.MouseMode == Input.MouseModeEnum.Visible && _holdingItem == true)
+        /*else if (@event is InputEventMouseMotion rMotion && Input.MouseMode == Input.MouseModeEnum.Visible && _holdingItem == true)
         {
             if (Input.IsMouseButtonPressed(MouseButton.Right))
             {
@@ -84,7 +97,7 @@ public partial class Player : CharacterBody3D
                     _holdPosition.GlobalTransform = new Transform3D(new Basis(newTotalRotation), _holdPosition.GlobalTransform.Origin);
                 }
             }
-        }
+        }*/
 
 
         // --- Pause menu toggle ---
@@ -108,6 +121,10 @@ public partial class Player : CharacterBody3D
         {
             _holdingItem = true;
             Input.MouseMode = Input.MouseModeEnum.Visible;
+            _leftButton.Visible = true;
+            _rightButton.Visible = true;
+            _upButton.Visible = true;
+            _downButton.Visible = true;
         }
 	}
 
@@ -119,7 +136,7 @@ public partial class Player : CharacterBody3D
 		// --- Movement input ---
 		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_back");
 		Vector3 direction = (_head.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
+		if (direction != Vector3.Zero && _holdingItem == false)
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
@@ -152,13 +169,60 @@ public partial class Player : CharacterBody3D
 
         if (_holdingItem == true)
         {
+        if (_ui is Ui buttons)
+        {
+                if (buttons._direction != 0)
+                {
+                    if (buttons._direction == 1) //Left
+                    {
+                        tweenTimer += 1;
+                        _holdPosition.GlobalRotation += new Vector3(0f, Mathf.DegToRad(5f), 0f);
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                        }
+
+                    }
+                    else if (buttons._direction == 2) //Up
+                    {
+                        tweenTimer += 1;
+                        _holdPosition.GlobalRotation += new Vector3(Mathf.DegToRad(5f), 0f, 0f);
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                        }
+                    }
+                    else if (buttons._direction == 3) //Down
+                    {
+                        tweenTimer += 1;
+                        _holdPosition.GlobalRotation += new Vector3(Mathf.DegToRad(-5f), 0f, 0f);
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                        }
+                    }
+                    else if (buttons._direction == 4) //Right
+                    {
+                        tweenTimer += 1;
+                        _holdPosition.GlobalRotation += new Vector3(0f, Mathf.DegToRad(-5f), 0f);
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                        }
+                    }
+                }  
+        }
+            
             _lastSeen.GlobalPosition = _lastSeen.GlobalPosition.Lerp(_holdPosition.GlobalPosition, (float)delta * 5f);
-            //_lastSeen.GlobalRotation = _lastSeen.GlobalRotation.Lerp(_holdPosition.GlobalRotation, (float)delta * 5f);
             _lastSeen.GlobalRotation = _holdPosition.GlobalRotation;
             _lastSeen.GetNode<Label3D>("Prompt").Visible = false;
             Vector2 mousePosition = GetViewport().GetMousePosition();
             //GD.Print(mousePosition);
-            _mouseRay.GlobalPosition = new Vector3(mousePosition.X, mousePosition.Y, GlobalPosition.Z);
+            _mouseRay.GlobalPosition = new Vector3(mousePosition.X, mousePosition.Y, mousePosition.Y);
         }
 
 

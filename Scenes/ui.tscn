@@ -1,4 +1,7 @@
-[gd_scene format=3 uid="uid://cli8n3lygnumt"]
+[gd_scene load_steps=3 format=3 uid="uid://cli8n3lygnumt"]
+
+[ext_resource type="Texture2D" uid="uid://cx80secfndj52" path="res://Assets/2D/Arrow.png" id="1_jxero"]
+[ext_resource type="Script" uid="uid://bmey5khw3e3he" path="res://Scripts/Ui.cs" id="1_qdvrb"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -7,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_qdvrb")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -21,3 +25,98 @@ offset_right = 1.0
 offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="TurnLeft" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.239
+anchor_top = 0.444
+anchor_right = 0.326
+anchor_bottom = 0.599
+offset_left = -0.328003
+offset_top = 0.287964
+offset_right = 4.19196
+offset_bottom = 2.08795
+grow_vertical = 2
+focus_mode = 0
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("1_jxero")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="TurnUp" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.463
+anchor_top = 0.062
+anchor_right = 0.549
+anchor_bottom = 0.216
+offset_left = -0.376038
+offset_top = -0.176003
+offset_right = 4.18408
+offset_bottom = 1.664
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(50, 50)
+focus_mode = 0
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("1_jxero")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="TurnDown" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.458
+anchor_top = 0.793
+anchor_right = 0.545
+anchor_bottom = 0.948
+offset_left = 0.383972
+offset_top = 0.135986
+offset_right = 4.90399
+offset_bottom = 1.93591
+grow_vertical = 2
+rotation = 4.71238
+pivot_offset = Vector2(50, 50)
+focus_mode = 0
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("1_jxero")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="TurnRight" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -0.296021
+offset_top = 0.287964
+offset_right = 4.22406
+offset_bottom = 2.08795
+grow_vertical = 2
+rotation = 3.14159
+pivot_offset = Vector2(50, 50)
+focus_mode = 0
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("1_jxero")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="button_up" from="TurnLeft" to="." method="_on_turn_left_button_up"]
+[connection signal="button_up" from="TurnUp" to="." method="_on_turn_up_button_up"]
+[connection signal="button_up" from="TurnDown" to="." method="_on_turn_down_button_up"]
+[connection signal="button_up" from="TurnRight" to="." method="_on_turn_right_button_up"]
