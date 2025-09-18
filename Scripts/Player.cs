@@ -3,23 +3,31 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-	// --- CONSTANTS ---
-	public const float Speed = 6.5f;                 // Base player movement speed
-	public const float BobFreq = 2.0f;               // Frequency of camera head-bob
-	public const float BobAmp = 0.06f;               // Amplitude of camera head-bob
-	public float CamSense = 0.002f;                  // Camera mouse sensitivity
+    // --- CONSTANTS ---
+    public const float Speed = 6.5f;                 // Base player movement speed
+    public const float BobFreq = 2.0f;               // Frequency of camera head-bob
+    public const float BobAmp = 0.06f;               // Amplitude of camera head-bob
+    public float CamSense = 0.002f;                  // Camera mouse sensitivity
     public float TurnSense = 0.008f;                  // Camera mouse sensitivity
     private Vector2 _lastMousePosition;
 
-	// --- NODE REFERENCES ---
+    // --- NODE REFERENCES ---
     private Node3D _head;                            // Player head node (handles rotation)
-	private Camera3D _cam;                           // Player camera node
+    private Camera3D _cam;                           // Player camera node
     private RayCast3D _ray;
     private Node3D _holdPosition;
     private Quaternion _startHoldRotation;
     private RayCast3D _mouseRay;
+    private Control _ui;
+    private Button _leftButton;
+    private Button _rightButton;
+    private Button _downButton;
+    private Button _upButton;
+    public int tweenTimer = 0;
+    public string _face;
 
-	// --- VARIABLES ---
+
+    // --- VARIABLES ---
     private float _bobTime = 0.0f;                   // Time accumulator for head-bob effect
     private CharacterBody3D _lastSeen;
     private bool _holdingItem = false;
@@ -33,6 +41,13 @@ public partial class Player : CharacterBody3D
         _ray = GetNode<RayCast3D>("Head/Camera3D/Ray");
         _holdPosition = GetNode<Node3D>("Head/Camera3D/HoldPosition");
         _mouseRay = GetNode<RayCast3D>("MouseRay");
+        _leftButton = GetNode<Button>("UI/TurnLeft");
+        _rightButton = GetNode<Button>("UI/TurnRight");
+        _downButton = GetNode<Button>("UI/TurnDown");
+        _upButton = GetNode<Button>("UI/TurnUp");
+        _ui = GetNode<Control>("UI");
+        if (_ui is Ui ui) { ui._player = this; }
+
         _startHoldRotation = _holdPosition.GlobalTransform.Basis.GetRotationQuaternion();
     }
 
@@ -55,8 +70,9 @@ public partial class Player : CharacterBody3D
         {
             _lastMousePosition = lMotion.Position;
             GD.Print(_lastMousePosition);
+            _startHoldRotation = _holdPosition.GlobalTransform.Basis.GetRotationQuaternion();
         }
-        else if (@event is InputEventMouseMotion rMotion && Input.MouseMode == Input.MouseModeEnum.Visible && _holdingItem == true)
+        /*else if (@event is InputEventMouseMotion rMotion && Input.MouseMode == Input.MouseModeEnum.Visible && _holdingItem == true)
         {
             if (Input.IsMouseButtonPressed(MouseButton.Right))
             {
@@ -83,7 +99,7 @@ public partial class Player : CharacterBody3D
                     _holdPosition.GlobalTransform = new Transform3D(new Basis(newTotalRotation), _holdPosition.GlobalTransform.Origin);
                 }
             }
-        }
+        }*/
 
 
         // --- Pause menu toggle ---
@@ -107,27 +123,19 @@ public partial class Player : CharacterBody3D
         {
             _holdingItem = true;
             Input.MouseMode = Input.MouseModeEnum.Visible;
+            _leftButton.Visible = true;
+            _rightButton.Visible = true;
+            _upButton.Visible = true;
+            _downButton.Visible = true;
         }
-	}
+    }
 
-	// --- PHYSICS LOOP ---
-	public override void _PhysicsProcess(double delta)
-	{
-		Vector3 velocity = Velocity;
+    // --- PHYSICS LOOP ---
+    public override void _PhysicsProcess(double delta)
+    {
+        Vector3 velocity = Velocity;
 
-		// --- Movement input ---
-		Vector2 inputDir = Input.GetVector("move_left", "move_right", "move_forward", "move_back");
-		Vector3 direction = (_head.GlobalTransform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		if (direction != Vector3.Zero)
-		{
-			velocity.X = direction.X * Speed;
-			velocity.Z = direction.Z * Speed;
-		}
-		else
-		{
-			velocity = velocity.Lerp(new Vector3(0f, velocity.Y, 0f), (float)delta * 10f);
-		}
-
+        // --- Movement input ---
         if (GetMouseCollision() != null)
         {
             CharacterBody3D targetNode = GetMouseCollision();
@@ -141,61 +149,192 @@ public partial class Player : CharacterBody3D
         else if (_lastSeen != null && _holdingItem == false)
         {
             CharacterBody3D targetNode = _lastSeen;
-           if (targetNode is Safe safe)
+            if (targetNode is Safe safe)
             {
                 safe.GetNode<MeshInstance3D>("Glow").Visible = false;
                 safe.GetNode<Label3D>("Prompt").Visible = false;
                 _lastSeen = null;
-            } 
+            }
         }
 
         if (_holdingItem == true)
         {
+            _face = GetMostFacingFace();
+            if (_face == "Top")
+            {
+                _leftButton.Disabled = true; _leftButton.GetNode<Sprite2D>("Arrow").Visible = false;
+                _rightButton.Disabled = true; _rightButton.GetNode<Sprite2D>("Arrow").Visible = false;
+                _downButton.Disabled = false; _downButton.GetNode<Sprite2D>("Arrow").Visible = true;
+                _upButton.Disabled = true; _upButton.GetNode<Sprite2D>("Arrow").Visible = false;
+            }
+            else if (_face == "Left" || _face == "Right" || _face == "Back")
+            {
+                _leftButton.Disabled = false; _leftButton.GetNode<Sprite2D>("Arrow").Visible = true;
+                _rightButton.Disabled = false; _rightButton.GetNode<Sprite2D>("Arrow").Visible = true;
+                _downButton.Disabled = true; _downButton.GetNode<Sprite2D>("Arrow").Visible = false;
+                _upButton.Disabled = true; _upButton.GetNode<Sprite2D>("Arrow").Visible = false;
+            }
+            else if (_face == "Bottom")
+            {
+                _leftButton.Disabled = true; _leftButton.GetNode<Sprite2D>("Arrow").Visible = false;
+                _rightButton.Disabled = true; _rightButton.GetNode<Sprite2D>("Arrow").Visible = false;
+                _downButton.Disabled = true; _downButton.GetNode<Sprite2D>("Arrow").Visible = false;
+                _upButton.Disabled = false; _upButton.GetNode<Sprite2D>("Arrow").Visible = true;
+            }
+            else
+            {
+                _leftButton.Disabled = false; _leftButton.GetNode<Sprite2D>("Arrow").Visible = true;
+                _rightButton.Disabled = false; _rightButton.GetNode<Sprite2D>("Arrow").Visible = true;
+                _downButton.Disabled = false; _downButton.GetNode<Sprite2D>("Arrow").Visible = true;
+                _upButton.Disabled = false; _upButton.GetNode<Sprite2D>("Arrow").Visible = true;
+            }
+            GD.Print(_holdPosition.GlobalRotation);
+            if (_ui is Ui buttons)
+            {
+                if (buttons._direction != 0)
+                {
+                    if (buttons._direction == 1) //Left
+                    {
+                        tweenTimer += 1;
+                        _holdPosition.GlobalRotation += new Vector3(0f, Mathf.DegToRad(5f), 0f);
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                        }
+
+                    }
+                    else if (buttons._direction == 2) //Up
+                    {
+                        tweenTimer += 1;
+                        _holdPosition.GlobalRotation += new Vector3(Mathf.DegToRad(5f), 0f, 0f);
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                            if (_face == "Front")
+                            {
+                                if (_lastSeen is Safe safe) { _holdPosition.GlobalRotation = safe._direction; }
+                            }
+                        }
+                    }
+                    else if (buttons._direction == 3) //Down
+                    {
+                        tweenTimer += 1;
+                        if (_face == "Bottom")
+                        {
+                            _holdPosition.GlobalRotation += new Vector3(Mathf.DegToRad(-4.9f), 0f, 0f);
+                        }
+                        else
+                        {
+                            _holdPosition.GlobalRotation += new Vector3(Mathf.DegToRad(-5f), 0f, 0f);
+                        }
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                        }
+                    }
+                    else if (buttons._direction == 4) //Right
+                    {
+                        tweenTimer += 1;
+                        _holdPosition.GlobalRotation += new Vector3(0f, Mathf.DegToRad(-5f), 0f);
+                        if (tweenTimer >= 18)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                        }
+                    }
+                }
+            }
+
             _lastSeen.GlobalPosition = _lastSeen.GlobalPosition.Lerp(_holdPosition.GlobalPosition, (float)delta * 5f);
-            _lastSeen.GlobalRotation = _lastSeen.GlobalRotation.Lerp(_holdPosition.GlobalRotation, (float)delta * 5f);
+            _lastSeen.GlobalRotation = _holdPosition.GlobalRotation;
             _lastSeen.GetNode<Label3D>("Prompt").Visible = false;
             Vector2 mousePosition = GetViewport().GetMousePosition();
             //GD.Print(mousePosition);
-            _mouseRay.GlobalPosition = new Vector3(mousePosition.X, mousePosition.Y, GlobalPosition.Z);
+            _mouseRay.GlobalPosition = new Vector3(mousePosition.X, mousePosition.Y, mousePosition.Y);
         }
 
 
-		// --- Camera FOV scaling ---
+        // --- Camera FOV scaling ---
         float fovGoal = Mathf.Lerp(_cam.Fov, Velocity.Length() + 80, (float)delta * 10f);
-		_cam.Fov = fovGoal;
+        _cam.Fov = fovGoal;
 
-		// --- Head bob ---
-		Transform3D camTransformGoal = _cam.Transform;
-		_bobTime += (float)delta * velocity.Length() * (Convert.ToInt32(IsOnFloor()) + 0.2f);
-		camTransformGoal.Origin = HeadBob(_bobTime);
-		_cam.Transform = camTransformGoal;
-		
-		// --- Gravity ---
-		if (!IsOnFloor()) { velocity += GetGravity() * (float)delta; }
-			
-		// --- Apply movement ---
-		Velocity = velocity;
-		MoveAndSlide();
-	}
+        // --- Head bob ---
+        Transform3D camTransformGoal = _cam.Transform;
+        _bobTime += (float)delta * velocity.Length() * (Convert.ToInt32(IsOnFloor()) + 0.2f);
+        camTransformGoal.Origin = HeadBob(_bobTime);
+        _cam.Transform = camTransformGoal;
 
-	// --- CUSTOM FUNCTIONS ---
-	private Vector3 HeadBob(float bobTime)
-	{
-		Vector3 pos = Vector3.Zero;
-		pos.Y = Mathf.Sin(bobTime * BobFreq) * BobAmp;
-		pos.X = Mathf.Cos(bobTime * BobFreq / 2) * BobAmp;
-		return pos;
-	}
+        // --- Apply movement ---
+        Velocity = velocity;
+        MoveAndSlide();
+    }
 
-	public CharacterBody3D GetMouseCollision()
-	{
-		if (_ray.IsColliding())
-		{
-			if (_ray.GetCollider().GetClass() == "CharacterBody3D" && _ray.GetCollider() != this)
-			{
-				return (CharacterBody3D)_ray.GetCollider();
-			}
-		}
-		return null;
-	}
+    // --- CUSTOM FUNCTIONS ---
+    private Vector3 HeadBob(float bobTime)
+    {
+        Vector3 pos = Vector3.Zero;
+        pos.Y = Mathf.Sin(bobTime * BobFreq) * BobAmp;
+        pos.X = Mathf.Cos(bobTime * BobFreq / 2) * BobAmp;
+        return pos;
+    }
+
+    public CharacterBody3D GetMouseCollision()
+    {
+        if (_ray.IsColliding())
+        {
+            if (_ray.GetCollider().GetClass() == "CharacterBody3D" && _ray.GetCollider() != this)
+            {
+                return (CharacterBody3D)_ray.GetCollider();
+            }
+        }
+        return null;
+    }
+    
+    private readonly System.Collections.Generic.Dictionary<Vector3, string> _faceNames =
+        new System.Collections.Generic.Dictionary<Vector3, string>
+    {
+        { Vector3.Left, "Right" },
+        { Vector3.Right, "Left" },
+        { Vector3.Up, "Bottom" },
+        { Vector3.Down, "Top" },
+        { Vector3.Forward, "Front" },
+        { Vector3.Back, "Back" }
+    };
+
+    public string GetMostFacingFace()
+    {
+        if (_lastSeen == null)
+        {
+            return "No box available.";
+        }
+
+        float highestDot = -1.0f;
+        string mostFacingFace = "None";
+
+        // The direction the camera is looking in global space.
+        // Godot's cameras look down their negative Z-axis by default.
+        Vector3 cameraDirection = -_cam.GlobalTransform.Basis.Z.Normalized();
+
+        // Check each face of the cube
+        foreach (var entry in _faceNames)
+        {
+            // Convert the cube's local normal to a global normal
+            Vector3 globalFaceNormal = _lastSeen.GlobalTransform.Basis * entry.Key;
+
+            // Calculate the dot product
+            float dot = cameraDirection.Dot(globalFaceNormal);
+
+            // If this face is more aligned with the camera's view, update the result
+            if (dot > highestDot)
+            {
+                highestDot = dot;
+                mostFacingFace = entry.Value;
+            }
+        }
+
+        return mostFacingFace;
+    }
 }

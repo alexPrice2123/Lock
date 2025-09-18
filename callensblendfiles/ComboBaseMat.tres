@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bliu26vslffs7"]
+
+[ext_resource type="Texture2D" uid="uid://dma2dm7nfajbj" path="res://callensblendfiles/BaseColor.png" id="1_8m6wd"]
+[ext_resource type="Texture2D" uid="uid://b28srxqrhnqcm" path="res://callensblendfiles/BaseRoughness.png" id="2_76bv2"]
+
+[resource]
+albedo_texture = ExtResource("1_8m6wd")
+roughness_texture = ExtResource("2_76bv2")
