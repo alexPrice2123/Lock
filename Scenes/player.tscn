@@ -38,6 +38,7 @@ script = ExtResource("1_v0iea")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.24053, 0)
 shape = SubResource("CapsuleShape3D_f60y1")
+disabled = true
 debug_color = Color(0, 0, 0, 1)
 
 [node name="Head" type="Node3D" parent="."]
@@ -48,16 +49,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45982, 0)
 [node name="Ray" type="RayCast3D" parent="Head/Camera3D"]
 target_position = Vector3(0, 0, -5)
 
-[node name="HoldPosition" type="Node3D" parent="Head/Camera3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.66546)
-
 [node name="UI" parent="." instance=ExtResource("2_cvnsp")]
-
-[node name="MouseRay" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45982, 0)
-target_position = Vector3(0, 0, -1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_vgqql")
 }
+
+[node name="HoldPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075, 1.46, -1.665)

@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxopb3uhgn61k"]
+
+[ext_resource type="PackedScene" uid="uid://brlp7ii2olwqo" path="res://callensblendfiles/CombinationLock.blend" id="1_0csys"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bt42n"]
+size = Vector3(0.250244, 1, 0.121094)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0csys"]
+size = Vector3(0.250244, 1, 0.141846)
+
+[node name="CombinationLock" instance=ExtResource("1_0csys")]
+
+[node name="Cylinder" parent="." index="0"]
+transform = Transform3D(0, 0.04059, 0, -0.193661, 0, 0, 0, 0, 0.193661, 0, 0.0186037, 0.00615343)
+
+[node name="Pick" type="Area3D" parent="Cylinder" index="0"]
+
+[node name="Pick" type="CollisionShape3D" parent="Cylinder/Pick" index="0"]
+transform = Transform3D(1, 2.71783e-13, 0, -2.84217e-14, 1, 0, 0, 0, 1, -0.688277, -0.696011, -0.0008545)
+shape = SubResource("BoxShape3D_bt42n")
+
+[node name="Cylinder_002" parent="." index="1"]
+transform = Transform3D(0.01916, 0, 0, 0, 0.01916, 0, 0, 0, 0.01916, 0, 0.197994, 0.0765644)
+
+[node name="Cylinder_001" parent="." index="2"]
+transform = Transform3D(-8.46521e-09, 0.04059, 0, -0.193661, -1.77424e-09, 0, 0, 0, 0.193661, 0, 0.0186037, 0.00615343)
+
+[node name="Numbers" type="Area3D" parent="Cylinder_001" index="0"]
+
+[node name="0" type="CollisionShape3D" parent="Cylinder_001/Numbers" index="0"]
+transform = Transform3D(1, 2.71783e-13, 0, -2.84217e-14, 1, 0, 0, 0, 1, -0.609056, -0.696011, -0.0008545)
+shape = SubResource("BoxShape3D_0csys")
+
+[node name="1" type="CollisionShape3D" parent="Cylinder_001/Numbers" index="1"]
+transform = Transform3D(0.898411, -2.11865e-08, 0.439155, -2.11868e-08, 1, 9.15877e-08, -0.439155, -9.15878e-08, 0.898411, -0.569078, -0.696011, 0.301938)
+shape = SubResource("BoxShape3D_0csys")

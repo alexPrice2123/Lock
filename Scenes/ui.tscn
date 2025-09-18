@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cli8n3lygnumt"]
+[gd_scene load_steps=6 format=3 uid="uid://cli8n3lygnumt"]
 
 [ext_resource type="Script" uid="uid://bmey5khw3e3he" path="res://Scripts/Ui.cs" id="1_qdvrb"]
 [ext_resource type="Texture2D" uid="uid://b8nvr5l52yu1i" path="res://Assets/2D/UI ART/UI arrow background.png" id="2_qdvrb"]
 [ext_resource type="Texture2D" uid="uid://bobv0f4qs3rs3" path="res://Assets/2D/UI ART/UI arrow.png" id="3_nf4gj"]
+[ext_resource type="Texture2D" uid="uid://fbivaiy36est" path="res://Assets/2D/UI ART/UI D BUTTON.png" id="4_2246s"]
+[ext_resource type="Texture2D" uid="uid://clqnu5m6p13ti" path="res://Assets/2D/UI ART/UI A BUTTON.png" id="5_q7pk6"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -141,7 +143,69 @@ position = Vector2(53.0001, 51)
 rotation = 3.14159
 texture = ExtResource("3_nf4gj")
 
+[node name="ComboKeyD" type="Button" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -107.296
+offset_top = 88.288
+offset_right = -157.52
+offset_bottom = 37.848
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="D" type="Sprite2D" parent="ComboKeyD"]
+texture_filter = 1
+position = Vector2(24, 25)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_2246s")
+
+[node name="ComboKeyA" type="Button" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -321.296
+offset_top = 88.288
+offset_right = -371.52
+offset_bottom = 37.848
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="A" type="Sprite2D" parent="ComboKeyA"]
+texture_filter = 1
+position = Vector2(25, 25)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("5_q7pk6")
+
 [connection signal="button_up" from="TurnLeft" to="." method="_on_turn_left_button_up"]
 [connection signal="button_up" from="TurnUp" to="." method="_on_turn_up_button_up"]
 [connection signal="button_up" from="TurnDown" to="." method="_on_turn_down_button_up"]
 [connection signal="button_up" from="TurnRight" to="." method="_on_turn_right_button_up"]
+[connection signal="button_down" from="ComboKeyD" to="." method="_on_combo_key_d_button_down"]
+[connection signal="button_up" from="ComboKeyD" to="." method="_on_combo_key_d_button_up"]
+[connection signal="button_down" from="ComboKeyA" to="." method="_on_combo_key_a_button_down"]
+[connection signal="button_up" from="ComboKeyA" to="." method="_on_combo_key_a_button_up"]
