@@ -1,12 +1,10 @@
 using Godot;
 using System;
+ using System.Linq;
 
 public partial class Player : CharacterBody3D
 {
     // --- CONSTANTS ---
-    public const float Speed = 6.5f;                 // Base player movement speed
-    public const float BobFreq = 2.0f;               // Frequency of camera head-bob
-    public const float BobAmp = 0.06f;               // Amplitude of camera head-bob
     public float CamSense = 0.002f;                  // Camera mouse sensitivity
     public float TurnSense = 0.008f;                  // Camera mouse sensitivity
 
@@ -22,16 +20,29 @@ public partial class Player : CharacterBody3D
     private Button _upButton;
     private Button _comboKeyA;
     private Button _comboKeyD;
-    public int tweenTimer = 0;
-    public string _face;
-    private Transform3D ogPosition;
-    private CharacterBody3D _hovering;
+    private ColorRect _crosshair;
+    private Label _comboCodeText;
+    private AudioStreamPlayer3D _sound;
+    private GpuParticles3D _opened;
+    private Label _moneyTimer;
 
 
     // --- VARIABLES ---
     private float _bobTime = 0.0f;                   // Time accumulator for head-bob effect
     private CharacterBody3D _lastSeen;
     private bool _holdingItem = false;
+    private string _spinDirection;
+    private int _currentComboNumber;
+    private int? _comboCodeInput;
+    private int _comboCode;
+    private double _comboDigitCount;
+    public int tweenTimer = 0;
+    public string _face;
+    private Transform3D ogPosition;
+    private CharacterBody3D _hovering;
+    private RandomNumberGenerator _rng = new RandomNumberGenerator();
+    private int _oldComboNumber;
+
 
     // --- READY ---
     public override void _Ready()
@@ -48,7 +59,14 @@ public partial class Player : CharacterBody3D
         _comboKeyA = GetNode<Button>("UI/ComboKeyA");
         _comboKeyD = GetNode<Button>("UI/ComboKeyD");
         _ui = GetNode<Control>("UI");
+        _crosshair = GetNode<ColorRect>("UI/Crosshair");
+        _comboCodeText = GetNode<Label>("UI/ComboCode");
+        _sound = GetNode<AudioStreamPlayer3D>("Sound");
+        _opened = GetNode<GpuParticles3D>("Opened");
+        _moneyTimer = GetNode<Label>("UI/MoneyTimer");
         if (_ui is Ui ui) { ui._player = this; }
+        _rng.Randomize();
+        _comboCode = _rng.RandiRange(1000, 9999);
     }
 
     // --- INPUT HANDLER ---
@@ -72,6 +90,7 @@ public partial class Player : CharacterBody3D
 
             if (_holdingItem == true)
             {
+                _moneyTimer.Visible = false;
                 _holdingItem = false;
                 _lastSeen.GlobalTransform = ogPosition;
                 _lastSeen = null;
@@ -80,6 +99,7 @@ public partial class Player : CharacterBody3D
                 _rightButton.Visible = false;
                 _upButton.Visible = false;
                 _downButton.Visible = false;
+                _crosshair.Visible = true;
             }
         }
 
@@ -94,7 +114,9 @@ public partial class Player : CharacterBody3D
             _rightButton.Visible = true;
             _upButton.Visible = true;
             _downButton.Visible = true;
+            _moneyTimer.Visible = true;
             LockStart();
+            _crosshair.Visible = false;
         }
 
         else if (@event is InputEventKey aKey && aKey.Keycode == Key.A && aKey.Pressed && _holdingItem == true)
@@ -103,8 +125,45 @@ public partial class Player : CharacterBody3D
             {
                 if (_hovering.Name == "ComboLock")
                 {
+                    if (_spinDirection == null)
+                    {
+                        _spinDirection = "Left";
+                    }
+                    else if (_spinDirection == "Right")
+                    {
+                        _spinDirection = "Left";
+                        string combinedString = _comboCodeInput.ToString() + _currentComboNumber.ToString();
+                            _comboCodeInput = int.Parse(combinedString);
+                            GD.Print(_comboCodeInput);
+                            _comboCodeText.Text = _comboCodeInput.ToString();
+                            if (_comboCodeInput == 0) { _comboDigitCount = 1; }
+                            else
+                            {
+                                _comboDigitCount = Math.Floor(Math.Log10((double)_comboCodeInput)) + 1;
+                            if (_comboDigitCount >= 4 && _comboCodeInput != _comboCode)
+                            {
+                                _comboCodeInput = null;
+                                _comboCodeText.Text = "Incorrect!";
+                                _comboDigitCount = 0;
+                            }
+                            else if (_comboCodeInput == _comboCode)
+                            {
+                                _opened.Emitting = true;
+                                CharacterBody3D toDestory = _hovering;
+                                _hovering = null;
+                                toDestory.QueueFree();
+                                GetMouseCollision();
+                                _comboKeyD.Visible = false;
+                                _comboKeyA.Visible = false;
+                                _comboCodeText.Visible = false;
+                            }
+                        }
+                    }
                     _hovering.GetNode<MeshInstance3D>("Mesh/Cylinder_001").RotateX(Mathf.DegToRad(10f));
-                    GD.Print(_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas().Count);
+                    if (_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas().Count > 0)
+                    {
+                        _currentComboNumber = int.Parse(_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas()[0].Name);
+                    }
                 }
             }
         }
@@ -115,7 +174,45 @@ public partial class Player : CharacterBody3D
             {
                 if (_hovering.Name == "ComboLock")
                 {
+                    if (_spinDirection == null)
+                    {
+                        _spinDirection = "Right";
+                    }
+                    else if (_spinDirection == "Left")
+                    {
+                        _spinDirection = "Right";
+                        string combinedString = _comboCodeInput.ToString() + _currentComboNumber.ToString();
+                            _comboCodeInput = int.Parse(combinedString);
+                            GD.Print(_comboCodeInput);
+                            _comboCodeText.Text = _comboCodeInput.ToString();
+                            if (_comboCodeInput == 0) { _comboDigitCount = 1; }
+                            else
+                            {
+                                _comboDigitCount = Math.Floor(Math.Log10((double)_comboCodeInput)) + 1;
+                            if (_comboDigitCount >= 4 && _comboCodeInput != _comboCode)
+                            {
+                                _comboCodeInput = null;
+                                _comboCodeText.Text = "Incorrect!";
+                                _comboDigitCount = 0;
+                            }
+                            else if (_comboCodeInput == _comboCode)
+                            {
+                                _opened.Emitting = true;
+                                CharacterBody3D toDestory = _hovering;
+                                _hovering = null;
+                                toDestory.QueueFree();
+                                GetMouseCollision();
+                                _comboKeyD.Visible = false;
+                                _comboKeyA.Visible = false;
+                                _comboCodeText.Visible = false;
+                            }
+                        }
+                    }
                     _hovering.GetNode<MeshInstance3D>("Mesh/Cylinder_001").RotateX(Mathf.DegToRad(-10f));
+                    if (_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas().Count > 0)
+                    {
+                        _currentComboNumber = int.Parse(_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas()[0].Name);
+                    }
                 }
             }
         }
@@ -125,7 +222,40 @@ public partial class Player : CharacterBody3D
     // --- PHYSICS LOOP ---
     public override void _PhysicsProcess(double delta)
     {
-        Vector3 velocity = Velocity;
+        if (_oldComboNumber != _currentComboNumber)
+        {
+            _oldComboNumber = _currentComboNumber;
+            int reversed = ReverseNumber(_comboCode);
+            int divisor = (int)Math.Pow(10, _comboDigitCount);
+            int tempNumber = reversed / divisor;
+            int digit = tempNumber % 10;
+            GD.Print(digit);
+            if (_oldComboNumber == digit)
+            {
+                _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                _sound.Play();
+            }
+
+        }
+
+        if (_holdingItem == true && _lastSeen.GetChildren().OfType<CharacterBody3D>().ToList().Count <= 0)
+        {
+            CharacterBody3D toDestroy = _lastSeen;
+            _lastSeen = null;
+            toDestroy.QueueFree();
+            _holdingItem = false;
+            Input.MouseMode = Input.MouseModeEnum.Captured;
+            _leftButton.Visible = false;
+            _rightButton.Visible = false;
+            _upButton.Visible = false;
+            _downButton.Visible = false;
+            _crosshair.Visible = true;
+            _holdPosition.GlobalRotation = Vector3.Zero;
+            _comboCodeInput = null;
+            _comboCode = _rng.RandiRange(1000, 9999);
+            _comboDigitCount = 0;
+            _comboCodeText.Text = "";
+        }
 
         if (GetMouseCollision() != null && _holdingItem == false)
         {
@@ -239,11 +369,89 @@ public partial class Player : CharacterBody3D
                     }
                     else if (buttons._direction == 5) //CombLock D
                     {
+                        if (_spinDirection == null)
+                        {
+                            _spinDirection = "Right";
+                        }
+                        else if (_spinDirection == "Left")
+                        {
+                            _spinDirection = "Right";
+                             string combinedString = _comboCodeInput.ToString() + _currentComboNumber.ToString();
+                            _comboCodeInput = int.Parse(combinedString);
+                            GD.Print(_comboCodeInput);
+                            _comboCodeText.Text = _comboCodeInput.ToString();
+                            if (_comboCodeInput == 0) { _comboDigitCount = 1; }
+                            else
+                            {
+                                _comboDigitCount = Math.Floor(Math.Log10((double)_comboCodeInput)) + 1;
+                            if (_comboDigitCount >= 4 && _comboCodeInput != _comboCode)
+                            {
+                                _comboCodeInput = null;
+                                _comboCodeText.Text = "Incorrect!";
+                                _comboDigitCount = 0;
+                            }
+                            else if (_comboCodeInput == _comboCode)
+                            {
+                                _opened.Emitting = true;
+                                CharacterBody3D toDestory = _hovering;
+                                _hovering = null;
+                                toDestory.QueueFree();
+                                GetMouseCollision();
+                                _comboKeyD.Visible = false;
+                                _comboKeyA.Visible = false;
+                                _comboCodeText.Visible = false;
+                            }
+                        }
+
+                        }
                         _hovering.GetNode<MeshInstance3D>("Mesh/Cylinder_001").RotateX(Mathf.DegToRad(-2f));
+                        if (_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas().Count > 0)
+                        {
+                            _currentComboNumber = int.Parse(_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas()[0].Name);
+                        }
                     }
                     else if (buttons._direction == 6) //CombLock A
                     {
+                        if (_spinDirection == null)
+                        {
+                            _spinDirection = "Left";
+                        }
+                        else if (_spinDirection == "Right")
+                        {
+                            _spinDirection = "Left";
+                            string combinedString = _comboCodeInput.ToString() + _currentComboNumber.ToString();
+                            _comboCodeInput = int.Parse(combinedString);
+                            GD.Print(_comboCodeInput);
+                            _comboCodeText.Text = _comboCodeInput.ToString();
+                            if (_comboCodeInput == 0) { _comboDigitCount = 1; }
+                            else
+                            {
+                                _comboDigitCount = Math.Floor(Math.Log10((double)_comboCodeInput)) + 1;
+                            if (_comboDigitCount >= 4 && _comboCodeInput != _comboCode)
+                            {
+                                _comboCodeInput = null;
+                                _comboCodeText.Text = "Incorrect!";
+                                _comboDigitCount = 0;
+                            }
+                            else if (_comboCodeInput == _comboCode)
+                            {
+                                _opened.Emitting = true;
+                                CharacterBody3D toDestory = _hovering;
+                                _hovering = null;
+                                toDestory.QueueFree();
+                                GetMouseCollision();
+                                _comboKeyD.Visible = false;
+                                _comboKeyA.Visible = false;
+                                _comboCodeText.Visible = false;
+                            }
+                        }
+
+                        }
                         _hovering.GetNode<MeshInstance3D>("Mesh/Cylinder_001").RotateX(Mathf.DegToRad(2f));
+                        if (_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas().Count > 0)
+                        {
+                            _currentComboNumber = int.Parse(_hovering.GetNode<Area3D>("Mesh/Cylinder/Pick").GetOverlappingAreas()[0].Name);
+                        }
                     }
                 }
             }
@@ -286,32 +494,9 @@ public partial class Player : CharacterBody3D
                 }
             }*/
         }
-
-
-        // --- Camera FOV scaling ---
-        float fovGoal = Mathf.Lerp(_cam.Fov, Velocity.Length() + 80, (float)delta * 10f);
-        _cam.Fov = fovGoal;
-
-        // --- Head bob ---
-        Transform3D camTransformGoal = _cam.Transform;
-        _bobTime += (float)delta * velocity.Length() * (Convert.ToInt32(IsOnFloor()) + 0.2f);
-        camTransformGoal.Origin = HeadBob(_bobTime);
-        _cam.Transform = camTransformGoal;
-
-        // --- Apply movement ---
-        Velocity = velocity;
-        MoveAndSlide();
     }
 
     // --- CUSTOM FUNCTIONS ---
-    private Vector3 HeadBob(float bobTime)
-    {
-        Vector3 pos = Vector3.Zero;
-        pos.Y = Mathf.Sin(bobTime * BobFreq) * BobAmp;
-        pos.X = Mathf.Cos(bobTime * BobFreq / 2) * BobAmp;
-        return pos;
-    }
-
     public CharacterBody3D GetMouseCollision()
     {
         if (_ray.IsColliding())
@@ -378,12 +563,30 @@ public partial class Player : CharacterBody3D
             {
                 _comboKeyD.Visible = true;
                 _comboKeyA.Visible = true;
+                _comboCodeText.Visible = true;
             }
             else
             {
                 _comboKeyD.Visible = false;
                 _comboKeyA.Visible = false;
+                _comboCodeText.Visible = false;
             }
         }
+    }
+    
+    public int ReverseNumber(int number)
+    {
+        bool isNegative = number < 0;
+        number = Math.Abs(number); // Work with the absolute value
+
+        int reversedNumber = 0;
+        while (number != 0)
+        {
+            int lastDigit = number % 10;
+            reversedNumber = (reversedNumber * 10) + lastDigit;
+            number /= 10;
+        }
+
+        return isNegative ? -reversedNumber : reversedNumber; // Apply the original sign
     }
 }

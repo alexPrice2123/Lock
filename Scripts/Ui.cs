@@ -4,6 +4,39 @@ using System;
 public partial class Ui : Control
 {
 
+    private ColorRect _transition;
+    private float _transitionGoal = -0f;
+    private float _transitionLerpStrength = -0.01f;
+    private ShaderMaterial _transitionMat;
+
+    public override void _Ready()
+    {
+        _transition = GetNode<ColorRect>("Transition");
+        _transitionMat = _transition.Material as ShaderMaterial;
+    }
+
+    public override void _PhysicsProcess(double delta)
+    {
+        if (_transitionMat != null)
+        {
+            if (IsNumberInRange((float)_transitionMat.GetShaderParameter("progress"), _transitionGoal - 0.05f, _transitionGoal + 0.05f)) { _transitionMat.SetShaderParameter("progress", _transitionGoal); _transition.Visible = false; return; }
+            _transitionMat.SetShaderParameter("progress", (float)_transitionMat.GetShaderParameter("progress") + _transitionLerpStrength);
+        }
+
+    }
+    
+    public bool IsNumberInRange(float number, float min, float max)
+{
+    if (number >= min && number <= max)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
     public int _direction = 0;
     public CharacterBody3D _player;
 

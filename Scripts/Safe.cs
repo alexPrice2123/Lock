@@ -21,7 +21,6 @@ public partial class Safe : CharacterBody3D
         if (_glow.Visible == true && _prompt.Visible == false && looking == false)
         {
             looking = true;
-            //LookAt(_player.GetNode<Camera3D>("Head/Camera3D").GlobalPosition);
             _direction = GlobalRotation;
         }
     }

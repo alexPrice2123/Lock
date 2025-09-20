@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="LockGame"
-run/main_scene="uid://blr4dcq2lhte6"
+run/main_scene="uid://wauv8gf4wi3d"
 config/features=PackedStringArray("4.4", "C#", "Forward Plus")
 config/icon="res://Assets/2D/icon.svg"
 
 [display]
 
-window/size/mode=2
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [dotnet]

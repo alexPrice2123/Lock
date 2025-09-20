@@ -1,10 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cli8n3lygnumt"]
+[gd_scene load_steps=9 format=3 uid="uid://cli8n3lygnumt"]
 
 [ext_resource type="Script" uid="uid://bmey5khw3e3he" path="res://Scripts/Ui.cs" id="1_qdvrb"]
 [ext_resource type="Texture2D" uid="uid://b8nvr5l52yu1i" path="res://Assets/2D/UI ART/UI arrow background.png" id="2_qdvrb"]
 [ext_resource type="Texture2D" uid="uid://bobv0f4qs3rs3" path="res://Assets/2D/UI ART/UI arrow.png" id="3_nf4gj"]
 [ext_resource type="Texture2D" uid="uid://fbivaiy36est" path="res://Assets/2D/UI ART/UI D BUTTON.png" id="4_2246s"]
 [ext_resource type="Texture2D" uid="uid://clqnu5m6p13ti" path="res://Assets/2D/UI ART/UI A BUTTON.png" id="5_q7pk6"]
+[ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="6_m78vo"]
+[ext_resource type="Shader" uid="uid://dkgvbp0qqdpf0" path="res://Scripts/transition.gdshader" id="7_smcll"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_smcll"]
+shader = ExtResource("7_smcll")
+shader_parameter/progress = 1.0
+shader_parameter/diamondPixelSize = 60.0
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -15,7 +22,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qdvrb")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Crosshair" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -44,6 +51,7 @@ offset_right = 4.19196
 offset_bottom = 2.08795
 grow_vertical = 2
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
 theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
 icon = ExtResource("2_qdvrb")
@@ -72,6 +80,7 @@ offset_bottom = 1.664
 grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
 theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
 icon = ExtResource("2_qdvrb")
@@ -101,6 +110,7 @@ offset_bottom = 1.93591
 grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
 theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
 icon = ExtResource("2_qdvrb")
@@ -130,6 +140,7 @@ offset_bottom = 2.08795
 grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
 theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
 icon = ExtResource("2_qdvrb")
@@ -159,6 +170,7 @@ offset_bottom = 37.848
 grow_vertical = 2
 pivot_offset = Vector2(25, 25)
 focus_mode = 0
+mouse_default_cursor_shape = 6
 theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
 theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
 icon = ExtResource("2_qdvrb")
@@ -188,6 +200,7 @@ offset_bottom = 37.848
 grow_vertical = 2
 pivot_offset = Vector2(25, 25)
 focus_mode = 0
+mouse_default_cursor_shape = 6
 theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
 theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
 icon = ExtResource("2_qdvrb")
@@ -200,6 +213,46 @@ texture_filter = 1
 position = Vector2(25, 25)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_q7pk6")
+
+[node name="ComboCode" type="Label" parent="."]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 210.0
+offset_right = 741.0
+offset_bottom = 287.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoneyTimer" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 682.0
+offset_top = 25.0
+offset_right = 1001.0
+offset_bottom = 102.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 50
+text = "$20"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Transition" type="ColorRect" parent="."]
+visible = false
+z_index = 100
+material = SubResource("ShaderMaterial_smcll")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [connection signal="button_up" from="TurnLeft" to="." method="_on_turn_left_button_up"]
 [connection signal="button_up" from="TurnUp" to="." method="_on_turn_up_button_up"]

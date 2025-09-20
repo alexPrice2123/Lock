@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://7c8uhm5q17ny"]
+
+[ext_resource type="PackedScene" uid="uid://ce1cubbiggye2" path="res://Assets/3D/cardboardsafe.blend" id="1_l1u5p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0bwpx"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_b07gy"]
+
+[node name="cardboardsafe" instance=ExtResource("1_l1u5p")]
+
+[node name="Inside" type="MeshInstance3D" parent="." index="3"]
+transform = Transform3D(0.867579, 0, 0, 0, 0.631083, 0, 0, 0, 0.867579, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_0bwpx")
+mesh = SubResource("BoxMesh_b07gy")

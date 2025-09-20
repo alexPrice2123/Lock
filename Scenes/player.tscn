@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dy0qk0th8hsaf"]
+[gd_scene load_steps=12 format=3 uid="uid://dy0qk0th8hsaf"]
 
 [ext_resource type="Script" uid="uid://xweue20jyfly" path="res://Scripts/Player.cs" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://cli8n3lygnumt" path="res://Scenes/ui.tscn" id="2_cvnsp"]
@@ -32,6 +32,32 @@ _data = {
 &"new_animation": SubResource("Animation_cvnsp")
 }
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvnsp"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="Curve" id="Curve_6t5aa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cvnsp"]
+curve = SubResource("Curve_6t5aa")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vgqql"]
+lifetime_randomness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+radial_velocity_min = 0.499978
+radial_velocity_max = 0.499978
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_cvnsp")
+
+[sub_resource type="BoxMesh" id="BoxMesh_fkybt"]
+
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_v0iea")
 
@@ -57,4 +83,16 @@ libraries = {
 }
 
 [node name="HoldPosition" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.075, 1.46, -1.665)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025, 1.45, -1.7)
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+
+[node name="Opened" type="GPUParticles3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0.025, 1.45, -1.11194)
+material_override = SubResource("StandardMaterial3D_cvnsp")
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_vgqql")
+draw_pass_1 = SubResource("BoxMesh_fkybt")
