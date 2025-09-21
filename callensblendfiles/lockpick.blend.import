@@ -34,6 +34,10 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
+"handel": {
+"use_external/enabled": true,
+"use_external/path": "uid://c7mvotr13e3de"
+},
 "pick": {
 "use_external/enabled": true,
 "use_external/path": "uid://bliu26vslffs7"

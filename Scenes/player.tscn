@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://dy0qk0th8hsaf"]
+[gd_scene load_steps=13 format=3 uid="uid://dy0qk0th8hsaf"]
 
 [ext_resource type="Script" uid="uid://xweue20jyfly" path="res://Scripts/Player.cs" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://c6qxolf7hxacy" path="res://Scenes/lock_pick.tscn" id="2_6t5aa"]
 [ext_resource type="PackedScene" uid="uid://cli8n3lygnumt" path="res://Scenes/ui.tscn" id="2_cvnsp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]
@@ -74,6 +75,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45982, 0)
 
 [node name="Ray" type="RayCast3D" parent="Head/Camera3D"]
 target_position = Vector3(0, 0, -5)
+
+[node name="LockPick" parent="Head/Camera3D" instance=ExtResource("2_6t5aa")]
+transform = Transform3D(-1.96966e-08, 0, -0.450605, 0, 0.450605, 0, 0.450605, 0, -1.96966e-08, 0.375997, -0.289879, -0.604139)
+visible = false
 
 [node name="UI" parent="." instance=ExtResource("2_cvnsp")]
 

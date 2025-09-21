@@ -24,18 +24,18 @@ public partial class Ui : Control
         }
 
     }
-    
+
     public bool IsNumberInRange(float number, float min, float max)
-{
-    if (number >= min && number <= max)
     {
-        return true;
+        if (number >= min && number <= max)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    else
-    {
-        return false;
-    }
-}
 
     public int _direction = 0;
     public CharacterBody3D _player;
@@ -68,7 +68,7 @@ public partial class Ui : Control
     public void _on_combo_key_a_button_down()
     {
         if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
-        _direction =  6;
+        _direction = 6;
     }
     public void _on_combo_key_d_button_up()
     {
@@ -76,7 +76,16 @@ public partial class Ui : Control
     }
     public void _on_combo_key_a_button_up()
     {
-        _direction =  0;
+        _direction = 0;
     }
-
-}
+    public void _on_lock_pick_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction =  7;
+    }
+    public void _on_click_button_down()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction =  8;
+    }
+} 

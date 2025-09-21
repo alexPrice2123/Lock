@@ -9,12 +9,18 @@ public partial class Safe : CharacterBody3D
     private Node3D _player;
     private bool looking = false;
     public Vector3 _direction;
+    public float _money;
+    public float _moneyLossPF;
 
     public override void _Ready()
     {
         _prompt = GetNode<Label3D>("Prompt");
         _glow = GetNode<MeshInstance3D>("Glow");
-        _player = GetNode<Node3D>("../Player");
+        if (Name == "tutBox")
+        {
+            _money = 100f;
+            _moneyLossPF = 0.005f;
+        }
     }
     public override void _PhysicsProcess(double delta)
     {

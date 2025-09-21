@@ -11,6 +11,7 @@ public partial class MainMenu : Control
     public override void _Ready()
     {
         _transition = GetNode<ColorRect>("Transition");
+        _transition.Visible = true;
         _transitionMat = _transition.Material as ShaderMaterial;
     }
 
@@ -23,7 +24,6 @@ public partial class MainMenu : Control
             if ((float)_transitionMat.GetShaderParameter("progress") >= 1f)
             {
                 GetTree().ChangeSceneToFile("res://Scenes/world.tscn");
-                GD.Print("HELL YEA");
             }
             if (IsNumberInRange((float)_transitionMat.GetShaderParameter("progress"), _transitionGoal - 0.05f, _transitionGoal + 0.05f)) { _transitionMat.SetShaderParameter("progress", _transitionGoal); return; }
             _transitionMat.SetShaderParameter("progress", (float)_transitionMat.GetShaderParameter("progress") + _transitionLerpStrength);

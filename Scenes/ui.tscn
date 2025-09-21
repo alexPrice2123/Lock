@@ -14,6 +14,7 @@ shader_parameter/progress = 1.0
 shader_parameter/diamondPixelSize = 60.0
 
 [node name="UI" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +24,7 @@ grow_vertical = 2
 script = ExtResource("1_qdvrb")
 
 [node name="Crosshair" type="ColorRect" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -214,7 +216,93 @@ position = Vector2(25, 25)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("5_q7pk6")
 
+[node name="LockPick" type="Button" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -242.296
+offset_top = 129.288
+offset_right = -268.52
+offset_bottom = 78.848
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+theme_override_colors/font_outline_color = Color(0.223529, 0.0705882, 0.109804, 1)
+theme_override_colors/font_color = Color(0.407843, 0.184314, 0.239216, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 16
+disabled = true
+text = "Pick Lock"
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Click" type="Button" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -242.296
+offset_top = 255.288
+offset_right = -268.52
+offset_bottom = 204.848
+grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+theme_override_colors/font_outline_color = Color(0.223529, 0.0705882, 0.109804, 1)
+theme_override_colors/font_color = Color(0.407843, 0.184314, 0.239216, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 16
+text = "Click"
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="MinigameClicks" type="Label" parent="Click"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -297.0
+offset_top = -77.0
+offset_right = 299.0
+offset_bottom = 1.52588e-05
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 25
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ComboCode" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 0
 offset_left = 422.0
 offset_top = 210.0
@@ -229,6 +317,7 @@ vertical_alignment = 1
 
 [node name="MoneyTimer" type="Label" parent="."]
 visible = false
+texture_filter = 1
 layout_mode = 0
 offset_left = 682.0
 offset_top = 25.0
@@ -238,13 +327,52 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 25
 theme_override_fonts/font = ExtResource("6_m78vo")
 theme_override_font_sizes/font_size = 50
-text = "$20"
+text = "Money in safe"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Money" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 822.0
+offset_top = 560.0
+offset_right = 1141.0
+offset_bottom = 637.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 50
+text = "Money plr has"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoneyEarned" type="Label" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -38.5
+offset_right = 159.5
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 50
+text = "Final money eared from safe"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Transition" type="ColorRect" parent="."]
 visible = false
 z_index = 100
+texture_filter = 1
 material = SubResource("ShaderMaterial_smcll")
 layout_mode = 1
 anchors_preset = 15
@@ -262,3 +390,5 @@ color = Color(0, 0, 0, 1)
 [connection signal="button_up" from="ComboKeyD" to="." method="_on_combo_key_d_button_up"]
 [connection signal="button_down" from="ComboKeyA" to="." method="_on_combo_key_a_button_down"]
 [connection signal="button_up" from="ComboKeyA" to="." method="_on_combo_key_a_button_up"]
+[connection signal="button_up" from="LockPick" to="." method="_on_lock_pick_button_up"]
+[connection signal="button_down" from="Click" to="." method="_on_click_button_down"]

@@ -1,9 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxopb3uhgn61k"]
+[gd_scene load_steps=10 format=3 uid="uid://cxopb3uhgn61k"]
 
 [ext_resource type="PackedScene" uid="uid://brlp7ii2olwqo" path="res://callensblendfiles/CombinationLock.blend" id="1_0csys"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bt42n"]
 size = Vector3(0.250244, 1, 0.121094)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0csys"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="Curve" id="Curve_bt42n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_cvnsp"]
+curve = SubResource("Curve_bt42n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ec4bv"]
+lifetime_randomness = 1.0
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.01
+scale_max = 0.02
+scale_curve = SubResource("CurveTexture_cvnsp")
+
+[sub_resource type="BoxMesh" id="BoxMesh_a5ppx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ssa5k"]
+albedo_color = Color(0, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0csys"]
 size = Vector3(0.250244, 1, 0.141846)
@@ -18,6 +46,28 @@ transform = Transform3D(0, 0.04059, 0, -0.193661, 0, 0, 0, 0, 0.193661, 0, 0.018
 [node name="Pick" type="CollisionShape3D" parent="Cylinder/Pick" index="0"]
 transform = Transform3D(1, 2.71783e-13, 0, -2.84217e-14, 1, 0, 0, 0, 1, -0.688277, -0.696011, -0.0008545)
 shape = SubResource("BoxShape3D_bt42n")
+
+[node name="ClickW" type="GPUParticles3D" parent="Cylinder" index="1"]
+transform = Transform3D(1.31134e-07, 0, -1, -1, -4.37114e-08, -1.31134e-07, -4.37114e-08, 1, -5.73206e-15, -0.60667, -1.03721, 0.00142739)
+material_override = SubResource("StandardMaterial3D_0csys")
+emitting = false
+amount = 5
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ec4bv")
+draw_pass_1 = SubResource("BoxMesh_a5ppx")
+
+[node name="ClickB" type="GPUParticles3D" parent="Cylinder" index="2"]
+transform = Transform3D(1.31134e-07, 0, -1, -1, -4.37114e-08, -1.31134e-07, -4.37114e-08, 1, -5.73206e-15, -0.60667, -1.03721, 0.00142739)
+material_override = SubResource("StandardMaterial3D_ssa5k")
+emitting = false
+amount = 5
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ec4bv")
+draw_pass_1 = SubResource("BoxMesh_a5ppx")
 
 [node name="Cylinder_002" parent="." index="1"]
 transform = Transform3D(0.01916, 0, 0, 0, 0.01916, 0, 0, 0, 0.01916, 0, 0.197994, 0.0765644)

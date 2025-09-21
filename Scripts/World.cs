@@ -18,7 +18,7 @@ public partial class World : Node3D
         {
             CharacterBody3D safeInstance = _tutBox.Instantiate<CharacterBody3D>(); // Create monster instance
             _safeHolder.AddChild(safeInstance);                                             // Add monster to holder node
-            safeInstance.GlobalPosition = _spawn.GlobalPosition + new Vector3(0f, 5f, 0f);
+            safeInstance.GlobalPosition = _spawn.GlobalPosition + new Vector3(0f, 5.5f, 0f);
             safeInstance.GlobalRotation = _spawn.GlobalRotation;
             StartBounce(safeInstance);
         }
@@ -30,6 +30,8 @@ public partial class World : Node3D
         Tween tween = CreateTween();
         tween.SetTrans(Tween.TransitionType.Bounce);
         tween.SetEase(Tween.EaseType.Out);
-        tween.TweenProperty(toTween, "position", _spawn.GlobalPosition, 1f);
+        tween.TweenProperty(toTween, "position", _spawn.GlobalPosition, 1.5f);
+        await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+        toTween.GetNode<CollisionShape3D>("Collision").Disabled = false;
     }
 }
