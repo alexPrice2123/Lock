@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cwwe4g7ywgjld"
-path="res://.godot/imported/normallock.blend-e8f684035436c9b5bebb11fc8f8971c3.scn"
+path="res://.godot/imported/normallock.blend-e65c490debd9b85e067be82a2ea20b55.scn"
 
 [deps]
 
-source_file="res://callensblendfiles/normallock.blend"
-dest_files=["res://.godot/imported/normallock.blend-e8f684035436c9b5bebb11fc8f8971c3.scn"]
+source_file="res://Assets/callensblendfiles/normallock.blend"
+dest_files=["res://.godot/imported/normallock.blend-e65c490debd9b85e067be82a2ea20b55.scn"]
 
 [params]
 

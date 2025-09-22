@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b28srxqrhnqcm"
-path.s3tc="res://.godot/imported/BaseRoughness.png-c6cfb2d22ffa7f4c9b5144c2c01837a0.s3tc.ctex"
+uid="uid://qkm1c3lq3cnw"
+path.s3tc="res://.godot/imported/WheelRoughness.png-a8453c98d831909a534cb9d2725599ae.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "6ec41cb24e7a76c2d4cb9083248eff86"
+"md5": "8fb44219a288f39ee3c099d07cbed9d3"
 }
 
 [deps]
 
-source_file="res://callensblendfiles/BaseRoughness.png"
-dest_files=["res://.godot/imported/BaseRoughness.png-c6cfb2d22ffa7f4c9b5144c2c01837a0.s3tc.ctex"]
+source_file="res://Assets/callensblendfiles/WheelRoughness.png"
+dest_files=["res://.godot/imported/WheelRoughness.png-a8453c98d831909a534cb9d2725599ae.s3tc.ctex"]
 
 [params]
 

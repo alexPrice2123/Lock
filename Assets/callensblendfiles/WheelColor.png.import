@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fwxgo47vsi8n"
-path.s3tc="res://.godot/imported/sledgehammer_sledgehammer_wood_BaseColor.png-b7e8108af277d76f64baae20325e016b.s3tc.ctex"
+uid="uid://dfu8clctctgp6"
+path.s3tc="res://.godot/imported/WheelColor.png-bd66d52f3749b940e82164392e620bdc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "63e9f60e10530df236e1643a0f9fa5ab"
+"md5": "8713be5120fcac3e68d748cd8697fb92"
 }
 
 [deps]
 
-source_file="res://callensblendfiles/sledgehammer_sledgehammer_wood_BaseColor.png"
-dest_files=["res://.godot/imported/sledgehammer_sledgehammer_wood_BaseColor.png-b7e8108af277d76f64baae20325e016b.s3tc.ctex"]
+source_file="res://Assets/callensblendfiles/WheelColor.png"
+dest_files=["res://.godot/imported/WheelColor.png-bd66d52f3749b940e82164392e620bdc.s3tc.ctex"]
 
 [params]
 

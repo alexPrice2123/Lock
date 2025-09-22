@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://6k4xv84ihj5n"
-path="res://.godot/imported/room.fbx-5fb6ef3d06d5cb8054f546a2df2a31e8.scn"
+uid="uid://btq0y71ryethg"
+path="res://.godot/imported/CombinationLock.fbx-16eb9b16e022da386c12989dd16016b4.scn"
 
 [deps]
 
-source_file="res://callensblendfiles/room.fbx"
-dest_files=["res://.godot/imported/room.fbx-5fb6ef3d06d5cb8054f546a2df2a31e8.scn"]
+source_file="res://Assets/callensblendfiles/CombinationLock.fbx"
+dest_files=["res://.godot/imported/CombinationLock.fbx-16eb9b16e022da386c12989dd16016b4.scn"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://eutq2avj1vl7"
-path="res://.godot/imported/lockpick.blend-5689e656b300ae092df93ae46005a99c.scn"
+path="res://.godot/imported/lockpick.blend-8fc13d890783d08ed568589f944bbf70.scn"
 
 [deps]
 
-source_file="res://callensblendfiles/lockpick.blend"
-dest_files=["res://.godot/imported/lockpick.blend-5689e656b300ae092df93ae46005a99c.scn"]
+source_file="res://Assets/callensblendfiles/lockpick.blend"
+dest_files=["res://.godot/imported/lockpick.blend-8fc13d890783d08ed568589f944bbf70.scn"]
 
 [params]
 

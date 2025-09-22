@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ddsltrpqtqxkd"
-path="res://.godot/imported/roomroof.fbx-cf34780187e5c7f74f274702714aab1c.scn"
+path="res://.godot/imported/roomroof.fbx-f8448118da87a9dcae760e5b3f775598.scn"
 
 [deps]
 
-source_file="res://callensblendfiles/roomroof.fbx"
-dest_files=["res://.godot/imported/roomroof.fbx-cf34780187e5c7f74f274702714aab1c.scn"]
+source_file="res://Assets/callensblendfiles/roomroof.fbx"
+dest_files=["res://.godot/imported/roomroof.fbx-f8448118da87a9dcae760e5b3f775598.scn"]
 
 [params]
 

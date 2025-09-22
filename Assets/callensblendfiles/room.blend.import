@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://brlp7ii2olwqo"
-path="res://.godot/imported/CombinationLock.blend-72d18ee6a050d7182bf73dd31545449c.scn"
+uid="uid://bfm7shjnumuu5"
+path="res://.godot/imported/room.blend-0a9498462548266f96537cb3e9a95d52.scn"
 
 [deps]
 
-source_file="res://callensblendfiles/CombinationLock.blend"
-dest_files=["res://.godot/imported/CombinationLock.blend-72d18ee6a050d7182bf73dd31545449c.scn"]
+source_file="res://Assets/callensblendfiles/room.blend"
+dest_files=["res://.godot/imported/room.blend-0a9498462548266f96537cb3e9a95d52.scn"]
 
 [params]
 
@@ -32,18 +32,7 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"materials": {
-"combo": {
-"use_external/enabled": true,
-"use_external/path": "uid://b6nbycyj4d4st"
-},
-"lock": {
-"use_external/enabled": true,
-"use_external/path": "uid://bliu26vslffs7"
-}
-}
-}
+_subresources={}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dnid3sgc6axnn"
-path="res://.godot/imported/sledgehammer.blend-e058f5a54533bf8226424bf74b351f9e.scn"
+uid="uid://brlp7ii2olwqo"
+path="res://.godot/imported/CombinationLock.blend-37ff393b73127bf37ecb73a6515f778a.scn"
 
 [deps]
 
-source_file="res://callensblendfiles/sledgehammer.blend"
-dest_files=["res://.godot/imported/sledgehammer.blend-e058f5a54533bf8226424bf74b351f9e.scn"]
+source_file="res://Assets/callensblendfiles/CombinationLock.blend"
+dest_files=["res://.godot/imported/CombinationLock.blend-37ff393b73127bf37ecb73a6515f778a.scn"]
 
 [params]
 
@@ -32,7 +32,18 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"combo": {
+"use_external/enabled": true,
+"use_external/path": "uid://b6nbycyj4d4st"
+},
+"lock": {
+"use_external/enabled": true,
+"use_external/path": "uid://bliu26vslffs7"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c18626fca5416"
-path.s3tc="res://.godot/imported/sledgehammer_sledgehammer_hammer_Roughness.png-cc99aad1ad9deebbd4b22fbddd6f480c.s3tc.ctex"
+uid="uid://b3jetg5tivkbk"
+path.s3tc="res://.godot/imported/sledgehammer_sledgehammer_wood_Roughness.png-f471b66b291c5da41fce1e72f5017e49.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "81b7313988fccd3aa0d20312358f7d48"
+"md5": "e72deefe887b6a739d8b34c4008decf8"
 }
 
 [deps]
 
-source_file="res://callensblendfiles/sledgehammer_sledgehammer_hammer_Roughness.png"
-dest_files=["res://.godot/imported/sledgehammer_sledgehammer_hammer_Roughness.png-cc99aad1ad9deebbd4b22fbddd6f480c.s3tc.ctex"]
+source_file="res://Assets/callensblendfiles/sledgehammer_sledgehammer_wood_Roughness.png"
+dest_files=["res://.godot/imported/sledgehammer_sledgehammer_wood_Roughness.png-f471b66b291c5da41fce1e72f5017e49.s3tc.ctex"]
 
 [params]
 
