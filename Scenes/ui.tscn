@@ -38,6 +38,177 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Wires" type="ColorRect" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.447
+anchor_top = 0.46
+anchor_right = 0.569
+anchor_bottom = 0.671
+offset_left = 0.0559692
+offset_top = -0.0800171
+offset_right = 0.511963
+offset_bottom = 0.191986
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="WireTop1" type="ColorRect" parent="Wires"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.092
+anchor_right = 0.22
+anchor_bottom = 0.095
+offset_left = 0.0279989
+offset_right = -0.0200024
+offset_bottom = -0.0150013
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(9, 6)
+color = Color(0, 1, 0, 1)
+
+[node name="Wire1" type="Button" parent="Wires/WireTop1"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+focus_mode = 0
+mouse_default_cursor_shape = 6
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Line" type="Line2D" parent="Wires/WireTop1"]
+points = PackedVector2Array(9, 13, 9, 13)
+width = 18.0
+
+[node name="WireTop2" type="ColorRect" parent="Wires"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_right = 0.567
+anchor_bottom = 0.095
+offset_left = -0.0400047
+offset_right = 0.0529938
+offset_bottom = -0.0150013
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(9, 6)
+color = Color(0, 1, 0, 1)
+
+[node name="Wire2" type="Button" parent="Wires/WireTop2"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+focus_mode = 0
+mouse_default_cursor_shape = 6
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Line" type="Line2D" parent="Wires/WireTop2"]
+points = PackedVector2Array(9, 13, 9, 13)
+width = 18.0
+
+[node name="WireTop3" type="ColorRect" parent="Wires"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.773
+anchor_right = 0.901
+anchor_bottom = 0.095
+offset_left = 0.00698853
+offset_right = -0.0410004
+offset_bottom = -0.0150013
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(9, 6)
+color = Color(0, 1, 0, 1)
+
+[node name="Wire3" type="Button" parent="Wires/WireTop3"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+focus_mode = 0
+mouse_default_cursor_shape = 6
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("6_m78vo")
+text = "
+"
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Line" type="Line2D" parent="Wires/WireTop3"]
+points = PackedVector2Array(9, 13, 9, 13)
+width = 18.0
+
+[node name="WireBottom1" type="ColorRect" parent="Wires"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.092
+anchor_top = 0.898
+anchor_right = 0.22
+anchor_bottom = 1.0
+offset_left = 0.0279989
+offset_top = -0.0260086
+offset_right = -0.0200024
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="WireBottom2" type="ColorRect" parent="Wires"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.447
+anchor_top = 0.898
+anchor_right = 0.567
+anchor_bottom = 1.0
+offset_left = -1.027
+offset_top = -0.0260086
+offset_right = 0.0529938
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="WireBottom3" type="ColorRect" parent="Wires"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.773
+anchor_top = 0.898
+anchor_right = 0.901
+anchor_bottom = 1.0
+offset_left = 0.00698853
+offset_top = -0.0260086
+offset_right = -0.0410004
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
 [node name="TurnLeft" type="Button" parent="."]
 visible = false
 texture_filter = 1
@@ -126,36 +297,6 @@ position = Vector2(52, 52)
 rotation = -1.5708
 texture = ExtResource("3_nf4gj")
 
-[node name="TurnRight" type="Button" parent="."]
-visible = false
-texture_filter = 1
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.673
-anchor_top = 0.444
-anchor_right = 0.76
-anchor_bottom = 0.599
-offset_left = -0.296021
-offset_top = 0.287964
-offset_right = 4.22406
-offset_bottom = 2.08795
-grow_vertical = 2
-pivot_offset = Vector2(50, 50)
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
-theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
-icon = ExtResource("2_qdvrb")
-flat = true
-icon_alignment = 1
-expand_icon = true
-
-[node name="Arrow" type="Sprite2D" parent="TurnRight"]
-texture_filter = 1
-position = Vector2(53.0001, 51)
-rotation = 3.14159
-texture = ExtResource("3_nf4gj")
-
 [node name="ComboKeyD" type="Button" parent="."]
 visible = false
 texture_filter = 1
@@ -185,6 +326,36 @@ texture_filter = 1
 position = Vector2(24, 25)
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_2246s")
+
+[node name="TurnRight" type="Button" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -0.296021
+offset_top = 0.287964
+offset_right = 4.22406
+offset_bottom = 2.08795
+grow_vertical = 2
+pivot_offset = Vector2(50, 50)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Arrow" type="Sprite2D" parent="TurnRight"]
+texture_filter = 1
+position = Vector2(53.0001, 51)
+rotation = 3.14159
+texture = ExtResource("3_nf4gj")
 
 [node name="ComboKeyA" type="Button" parent="."]
 visible = false
@@ -369,6 +540,29 @@ text = "Final money eared from safe"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Done" type="Label" parent="."]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.5
+offset_top = -38.5
+offset_right = 159.5
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 50
+text = "Final money eared from safe"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Transition" type="ColorRect" parent="."]
 visible = false
 z_index = 100
@@ -382,13 +576,129 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
+[node name="Screws" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Unscrew1" type="Button" parent="Screws"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -321.296
+offset_top = -17.712
+offset_right = -371.52
+offset_bottom = -68.152
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/icon_disabled_color = Color(0.412152, 0.412152, 0.412152, 1)
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Unscrew2" type="Button" parent="Screws"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -321.296
+offset_top = 147.288
+offset_right = -371.52
+offset_bottom = 96.848
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/icon_disabled_color = Color(0.412152, 0.412152, 0.412152, 1)
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Unscrew3" type="Button" parent="Screws"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -107.296
+offset_top = -17.712
+offset_right = -157.52
+offset_bottom = -68.152
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/icon_disabled_color = Color(0.412152, 0.412152, 0.412152, 1)
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Unscrew4" type="Button" parent="Screws"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.673
+anchor_top = 0.444
+anchor_right = 0.76
+anchor_bottom = 0.599
+offset_left = -107.296
+offset_top = 147.288
+offset_right = -157.52
+offset_bottom = 96.848
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/icon_disabled_color = Color(0.412152, 0.412152, 0.412152, 1)
+theme_override_colors/icon_hover_color = Color(0.710047, 0.710047, 0.710047, 1)
+theme_override_colors/icon_pressed_color = Color(0.886262, 0.886261, 0.886262, 1)
+icon = ExtResource("2_qdvrb")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="button_down" from="Wires/WireTop1/Wire1" to="." method="_on_wire_1_button_down"]
+[connection signal="button_up" from="Wires/WireTop1/Wire1" to="." method="_on_wire_1_button_up"]
+[connection signal="button_down" from="Wires/WireTop2/Wire2" to="." method="_on_wire_2_button_down"]
+[connection signal="button_up" from="Wires/WireTop2/Wire2" to="." method="_on_wire_2_button_up"]
+[connection signal="button_down" from="Wires/WireTop3/Wire3" to="." method="_on_wire_3_button_down"]
+[connection signal="button_up" from="Wires/WireTop3/Wire3" to="." method="_on_wire_3_button_up"]
 [connection signal="button_up" from="TurnLeft" to="." method="_on_turn_left_button_up"]
 [connection signal="button_up" from="TurnUp" to="." method="_on_turn_up_button_up"]
 [connection signal="button_up" from="TurnDown" to="." method="_on_turn_down_button_up"]
-[connection signal="button_up" from="TurnRight" to="." method="_on_turn_right_button_up"]
 [connection signal="button_down" from="ComboKeyD" to="." method="_on_combo_key_d_button_down"]
 [connection signal="button_up" from="ComboKeyD" to="." method="_on_combo_key_d_button_up"]
+[connection signal="button_up" from="TurnRight" to="." method="_on_turn_right_button_up"]
 [connection signal="button_down" from="ComboKeyA" to="." method="_on_combo_key_a_button_down"]
 [connection signal="button_up" from="ComboKeyA" to="." method="_on_combo_key_a_button_up"]
 [connection signal="button_up" from="LockPick" to="." method="_on_lock_pick_button_up"]
 [connection signal="button_down" from="Click" to="." method="_on_click_button_down"]
+[connection signal="button_up" from="Screws/Unscrew1" to="." method="_on_unscrew_1_button_up"]
+[connection signal="button_up" from="Screws/Unscrew2" to="." method="_on_unscrew_2_button_up"]
+[connection signal="button_up" from="Screws/Unscrew3" to="." method="_on_unscrew_3_button_up"]
+[connection signal="button_up" from="Screws/Unscrew4" to="." method="_on_unscrew_4_button_up"]

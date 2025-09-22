@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://wauv8gf4wi3d"]
+[gd_scene load_steps=10 format=4 uid="uid://wauv8gf4wi3d"]
 
 [ext_resource type="Shader" uid="uid://6ofgupskwkd5" path="res://Scripts/cel.gdshader" id="1_48xlc"]
 [ext_resource type="Script" uid="uid://dnqmpql88wpsh" path="res://Scripts/MainMenu.cs" id="1_opfnp"]
 [ext_resource type="Shader" uid="uid://djlp3jdqg6gvs" path="res://Scripts/vig.gdshader" id="2_1ehe0"]
 [ext_resource type="Shader" uid="uid://dkgvbp0qqdpf0" path="res://Scripts/transition.gdshader" id="2_n45e2"]
 [ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="4_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://bsj8semvv73d1" path="res://Assets/2D/UI ART/TITLE FINISHED.png" id="6_opfnp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("1_48xlc")
@@ -12,8 +13,8 @@ shader_parameter/center = Vector2(0.5, 0.26)
 shader_parameter/stripes = 24
 shader_parameter/speed = 0.1
 shader_parameter/direction = 1
-shader_parameter/stripe_colors = PackedVector4Array(1, 0.5, 0.5, 0, 0, 0.8, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/color_count = 2
+shader_parameter/stripe_colors = PackedVector4Array(0.937, 0.839, 0.839, 0, 0.624, 0.549, 0.549, 0, 0.463, 0.394, 0.424, 0)
+shader_parameter/color_count = 3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_opfnp"]
 shader = ExtResource("2_n45e2")
@@ -26,6 +27,7 @@ shader_parameter/outerRadius = 2.256
 shader_parameter/MainAlpha = 1.0
 
 [node name="MainMenu" type="Control"]
+texture_filter = 1
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,6 +44,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.462745, 0.392157, 0.423529, 1)
 
 [node name="Transition" type="ColorRect" parent="."]
 z_index = 100
@@ -66,31 +69,24 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 1.52)
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 133.0
-offset_top = 78.0
-offset_right = 1057.0
-offset_bottom = 254.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 25
-theme_override_fonts/font = ExtResource("4_ce3w2")
-theme_override_font_sizes/font_size = 176
-text = "GAME NAME!"
-
 [node name="Play" type="Button" parent="."]
 layout_mode = 0
-offset_left = 510.0
+offset_left = 392.5
 offset_top = 346.0
-offset_right = 652.0
-offset_bottom = 406.0
+offset_right = 759.5
+offset_bottom = 499.0
+pivot_offset = Vector2(183.5, 76.5)
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 15
+theme_override_constants/outline_size = 16
 theme_override_fonts/font = ExtResource("4_ce3w2")
-theme_override_font_sizes/font_size = 51
+theme_override_font_sizes/font_size = 128
 text = "PLAY!"
-flat = true
+icon_alignment = 1
+
+[node name="TitleFinished" type="Sprite2D" parent="."]
+position = Vector2(576, 157.13)
+texture = ExtResource("6_opfnp")
 
 [connection signal="button_up" from="Play" to="." method="_on_play_button_up"]

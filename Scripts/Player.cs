@@ -31,6 +31,8 @@ public partial class Player : CharacterBody3D
     private Button _lockButton;
     private Button _clickLockButton;
     private Label _minigamePoints;
+    private Control _screws;
+    private Control _wires;
 
 
     // --- VARIABLES ---
@@ -53,7 +55,13 @@ public partial class Player : CharacterBody3D
     private bool _inMiniGame = false;
     private int _minigameSpin = 1;
     private int _minigameClicks = 0;
-    
+    private bool _fingerLockOpen = false;
+    private bool _wireOneDone = false;
+    private bool _wireTwoDone = false;
+    private bool _wireThreeDone = false;
+    public bool _finished = false;
+
+
 
 
     // --- READY ---
@@ -83,6 +91,8 @@ public partial class Player : CharacterBody3D
         _lockButton = GetNode<Button>("UI/LockPick");
         _clickLockButton = GetNode<Button>("UI/Click");
         _minigamePoints = GetNode<Label>("UI/Click/MinigameClicks");
+        _screws = GetNode<Control>("UI/Screws");
+        _wires = GetNode<Control>("UI/Wires");
         if (_ui is Ui ui) { ui._player = this; }
         _rng.Randomize();
         _comboCode = _rng.RandiRange(1000, 9999);
@@ -134,9 +144,13 @@ public partial class Player : CharacterBody3D
             _upButton.Visible = true;
             _downButton.Visible = true;
             _moneyTimer.Visible = true;
-            LockStart();
             _crosshair.Visible = false;
+            if (_lastSeen.Name == "box1")
+            {
+                _hasLockPick = true;
+            }
             if (_lastSeen is Safe safe) { _moneyTimer.Text = "$" + safe._money.ToString(); }
+            LockStart();
         }
 
         else if (@event is InputEventKey aKey && aKey.Keycode == Key.A && aKey.Pressed && _holdingItem == true)
@@ -192,6 +206,12 @@ public partial class Player : CharacterBody3D
     // --- PHYSICS LOOP ---
     public override void _PhysicsProcess(double delta)
     {
+        if (_finished == true)
+        {
+            _ui.GetNode<Label>("Done").Text = "Congrats! You saved $" + _money + " from the safes!";
+            _ui.GetNode<Label>("Done").Visible = true;
+            return;
+        }
         if (_oldComboNumber != _currentComboNumber)
         {
             _oldComboNumber = _currentComboNumber;
@@ -226,6 +246,14 @@ public partial class Player : CharacterBody3D
 
         }
 
+        if (_fingerLockOpen == true && _leftButton.Visible == true)
+        {
+            _leftButton.Visible = false;
+            _rightButton.Visible = false;
+            _upButton.Visible = false;
+            _downButton.Visible = false;
+            _screws.Visible = false;
+        }
 
         if (GetMouseCollision() != null && _holdingItem == false)
         {
@@ -257,7 +285,13 @@ public partial class Player : CharacterBody3D
 
         if (_inMiniGame == true)
         {
-            _hovering.GetNode<Node3D>("RotationPoint/Mesh/MiniGame/Pick").Rotation += new Vector3(0f, 0.05f*(float)_minigameSpin, 0f);
+            _hovering.GetNode<Node3D>("RotationPoint/Mesh/MiniGame/Pick").Rotation += new Vector3(0f, 0.05f * (float)_minigameSpin, 0f);
+        }
+
+        if (_wireOneDone == true && _wireTwoDone == true && _wireThreeDone == true)
+        {
+            _wireOneDone = false;
+            EndFingerLock();
         }
 
         if (_holdingItem == true)
@@ -364,6 +398,8 @@ public partial class Player : CharacterBody3D
                         _hovering.GetNode<Node3D>("RotationPoint/Mesh/MiniGame/Hole").Rotation += new Vector3(0f, (float)Mathf.DegToRad(_rng.RandiRange(0, 360)), 0f);
                         _inMiniGame = true;
                         _clickLockButton.Visible = true;
+                        _hasLockPick = false;
+                        _lockPick.Visible = false;
 
                     }
                     else if (buttons._direction == 8) //Click LockPick mini game
@@ -376,6 +412,11 @@ public partial class Player : CharacterBody3D
                             _hovering.GetNode<Node3D>("RotationPoint/Mesh/MiniGame/Hole").Rotation += new Vector3(0f, (float)Mathf.DegToRad(_rng.RandiRange(0, 360)), 0f);
                             _minigameClicks += 1;
                             _minigamePoints.Text = _minigameClicks.ToString();
+                            _hovering.GetNode<GpuParticles3D>("RotationPoint/Mesh/MiniGame/Pick/ClickW").Emitting = true;
+                            _hovering.GetNode<GpuParticles3D>("RotationPoint/Mesh/MiniGame/Pick/ClickB").Emitting = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+
                             if (_minigameClicks >= 10)
                             {
                                 _opened.Emitting = true;
@@ -389,22 +430,195 @@ public partial class Player : CharacterBody3D
                                 _downButton.Visible = true;
                                 _clickLockButton.Visible = false;
                                 _inMiniGame = false;
-                                _hasLockPick = false;
-                                _lockPick.Visible = false;
                                 _minigameClicks = 0;
                                 _minigamePoints.Text = _minigameClicks.ToString();
-                                
+
                             }
                         }
                         else
                         {
                             _minigameClicks = 0;
                             _minigamePoints.Text = _minigameClicks.ToString();
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/KeyWrong.mp3");
+                            _sound.Play();
+                        }
+                    }
+                    else if (buttons._direction == 11) //Screw One
+                    {
+                        tweenTimer += 1;
+                        _screws.GetNode<Button>("Unscrew1").Rotation -= 3;
+                        _screws.GetNode<Button>("Unscrew1").Disabled = true;
+                        if (tweenTimer >= 20)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                            FingerLockHandler();
+                        }
+                    }
+                    else if (buttons._direction == 12) //Screw Two
+                    {
+                        tweenTimer += 1;
+                        _screws.GetNode<Button>("Unscrew2").Rotation -= 3;
+                        _screws.GetNode<Button>("Unscrew2").Disabled = true;
+                        if (tweenTimer >= 20)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                            FingerLockHandler();
+                        }
+                    }
+                    else if (buttons._direction == 13) //Screw Three
+                    {
+                        tweenTimer += 1;
+                        _screws.GetNode<Button>("Unscrew3").Rotation -= 3;
+                        _screws.GetNode<Button>("Unscrew3").Disabled = true;
+                        if (tweenTimer >= 20)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                            FingerLockHandler();
+                        }
+                    }
+                    else if (buttons._direction == 14) //Screw Four
+                    {
+                        tweenTimer += 1;
+                        _screws.GetNode<Button>("Unscrew4").Rotation -= 3;
+                        _screws.GetNode<Button>("Unscrew4").Disabled = true;
+                        if (tweenTimer >= 20)
+                        {
+                            buttons._direction = 0;
+                            tweenTimer = 0;
+                            FingerLockHandler();
+                        }
+                    }
+                    else if (buttons._direction == 21 && _wireOneDone == false) //Wire One Down
+                    {
+                        Vector2 mousePos = GetViewport().GetMousePosition();
+                        _wires.GetNode<Line2D>("WireTop1/Line").SetPointPosition(1, mousePos - _wires.Position - new Vector2(13, 0));
+                        _wires.GetNode<Line2D>("WireTop1/Line").DefaultColor = _wires.GetNode<ColorRect>("WireTop1").Color;
+                    }
+                    else if (buttons._direction == 31 && _wireOneDone == false) //Wire One Up
+                    {
+                        Vector2 mousePos = GetViewport().GetMousePosition();
+                        if (IsNear(_wires.GetNode<ColorRect>("WireBottom1").Position + _wires.Position, mousePos, 25f) && _wires.GetNode<ColorRect>("WireBottom1").Color == _wires.GetNode<Line2D>("WireTop1/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop1/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom1").Position);
+                            buttons._direction = 0;
+                            _wireOneDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else if (IsNear(_wires.GetNode<ColorRect>("WireBottom2").Position + _wires.Position, mousePos, 25f) && _wires.GetNode<ColorRect>("WireBottom2").Color == _wires.GetNode<Line2D>("WireTop1/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop1/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom2").Position);
+                            buttons._direction = 0;
+                            _wireOneDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else if (IsNear(_wires.GetNode<ColorRect>("WireBottom3").Position + _wires.Position, mousePos, 25f) && _wires.GetNode<ColorRect>("WireBottom3").Color == _wires.GetNode<Line2D>("WireTop1/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop1/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom3").Position);
+                            buttons._direction = 0;
+                            _wireOneDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else
+                        {
+                            _wires.GetNode<Line2D>("WireTop1/Line").SetPointPosition(1, _wires.GetNode<Line2D>("WireTop1/Line").GetPointPosition(0));
+                            buttons._direction = 0;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/KeyWrong.mp3");
+                            _sound.Play();
+                        }
+                    }
+
+                    else if (buttons._direction == 22 && _wireTwoDone == false) //Wire Two Down
+                    {
+                        Vector2 mousePos = GetViewport().GetMousePosition();
+                        _wires.GetNode<Line2D>("WireTop2/Line").SetPointPosition(1, mousePos - _wires.Position - new Vector2(62, 0));
+                        _wires.GetNode<Line2D>("WireTop2/Line").DefaultColor = _wires.GetNode<ColorRect>("WireTop2").Color;
+                    }
+                    else if (buttons._direction == 32 && _wireTwoDone == false) //Wire Two Up
+                    {
+                        Vector2 mousePos = GetViewport().GetMousePosition();
+                        if (IsNear(_wires.GetNode<ColorRect>("WireBottom1").Position + _wires.Position, mousePos, 15f) && _wires.GetNode<ColorRect>("WireBottom1").Color == _wires.GetNode<Line2D>("WireTop2/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop2/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom1").Position - new Vector2(58, 0));
+                            buttons._direction = 0;
+                            _wireTwoDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else if (IsNear(_wires.GetNode<ColorRect>("WireBottom2").Position + _wires.Position, mousePos, 15f) && _wires.GetNode<ColorRect>("WireBottom2").Color == _wires.GetNode<Line2D>("WireTop2/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop2/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom2").Position - new Vector2(58, 0));
+                            buttons._direction = 0;
+                            _wireTwoDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else if (IsNear(_wires.GetNode<ColorRect>("WireBottom3").Position + _wires.Position, mousePos, 15f) && _wires.GetNode<ColorRect>("WireBottom3").Color == _wires.GetNode<Line2D>("WireTop2/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop2/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom3").Position - new Vector2(58, 0));
+                            buttons._direction = 0;
+                            _wireTwoDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else
+                        {
+                            _wires.GetNode<Line2D>("WireTop2/Line").SetPointPosition(1, _wires.GetNode<Line2D>("WireTop2/Line").GetPointPosition(0));
+                            buttons._direction = 0;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/KeyWrong.mp3");
+                            _sound.Play();
+                        }
+                    }
+
+                    else if (buttons._direction == 23 && _wireThreeDone == false) //Wire Three Down
+                    {
+                        Vector2 mousePos = GetViewport().GetMousePosition();
+                        _wires.GetNode<Line2D>("WireTop3/Line").SetPointPosition(1, mousePos - _wires.Position - new Vector2(109, 0));
+                        _wires.GetNode<Line2D>("WireTop3/Line").DefaultColor = _wires.GetNode<ColorRect>("WireTop3").Color;
+                    }
+                    else if (buttons._direction == 33 && _wireThreeDone == false) //Wire Three Up
+                    {
+                        Vector2 mousePos = GetViewport().GetMousePosition();
+                        if (IsNear(_wires.GetNode<ColorRect>("WireBottom1").Position + _wires.Position, mousePos, 15f) && _wires.GetNode<ColorRect>("WireBottom1").Color == _wires.GetNode<Line2D>("WireTop3/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop3/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom1").Position - new Vector2(102, 0));
+                            buttons._direction = 0;
+                            _wireThreeDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else if (IsNear(_wires.GetNode<ColorRect>("WireBottom2").Position + _wires.Position, mousePos, 15f) && _wires.GetNode<ColorRect>("WireBottom2").Color == _wires.GetNode<Line2D>("WireTop3/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop3/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom2").Position - new Vector2(102, 0));
+                            buttons._direction = 0;
+                            _wireThreeDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else if (IsNear(_wires.GetNode<ColorRect>("WireBottom3").Position + _wires.Position, mousePos, 15f) && _wires.GetNode<ColorRect>("WireBottom3").Color == _wires.GetNode<Line2D>("WireTop3/Line").DefaultColor)
+                        {
+                            _wires.GetNode<Line2D>("WireTop3/Line").SetPointPosition(1, _wires.GetNode<ColorRect>("WireBottom3").Position - new Vector2(102, 0));
+                            buttons._direction = 0;
+                            _wireThreeDone = true;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
+                            _sound.Play();
+                        }
+                        else
+                        {
+                            _wires.GetNode<Line2D>("WireTop3/Line").SetPointPosition(1, _wires.GetNode<Line2D>("WireTop3/Line").GetPointPosition(0));
+                            buttons._direction = 0;
+                            _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/KeyWrong.mp3");
+                            _sound.Play();
                         }
                     }
                     else if (buttons._direction == 999) //Safe Complete
                     {
-                        if (_lastSeen.Name == "tutBox")
+                        if (_lastSeen.Name == "box1" || _lastSeen.Name == "box2" || _lastSeen.Name == "box3" || _lastSeen.Name == "box4")
                         {
                             tweenTimer += 1;
                             _holdPosition.GlobalRotation += new Vector3(Mathf.DegToRad(5f), 0f, 0f);
@@ -578,6 +792,11 @@ public partial class Player : CharacterBody3D
                     _lockButton.Disabled = true;
                 }
             }
+            else if (_hovering.Name == "FingerLock")
+            {
+                DisableAll();
+                _screws.Visible = true;
+            }
             else
             {
                 DisableAll();
@@ -591,6 +810,7 @@ public partial class Player : CharacterBody3D
         _comboKeyA.Visible = false;
         _comboCodeText.Visible = false;
         _lockButton.Visible = false;
+        _screws.Visible = false;
     }
 
     public int ReverseNumber(int number)
@@ -673,6 +893,8 @@ public partial class Player : CharacterBody3D
                 _comboCodeInput = null;
                 _comboCodeText.Text = "Incorrect!";
                 _comboDigitCount = 0;
+                _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/KeyWrong.mp3");
+                _sound.Play();
             }
             else if (_comboCodeInput == _comboCode)
             {
@@ -690,5 +912,103 @@ public partial class Player : CharacterBody3D
                 _comboCodeText.Visible = false;
             }
         }
+    }
+
+    public async void FingerLockHandler()
+    {
+        if (_screws.GetNode<Button>("Unscrew1").Disabled == true
+        && _screws.GetNode<Button>("Unscrew2").Disabled == true
+        && _screws.GetNode<Button>("Unscrew3").Disabled == true
+        && _screws.GetNode<Button>("Unscrew4").Disabled == true)
+        {
+            _fingerLockOpen = true;
+            TweenFingerLock(_hovering.GetNode<Node3D>("Mesh/Rotate"), -165f);
+            await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
+            _wires.Visible = true;
+            int randomColor = _rng.RandiRange(1, 3);
+            if (randomColor == 1)
+            {
+                _wires.GetNode<ColorRect>("WireTop1").Color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireTop2").Color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireTop3").Color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+
+                _wires.GetNode<ColorRect>("WireBottom2").Color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireBottom1").Color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireBottom3").Color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+            }
+            else if (randomColor == 2)
+            {
+                _wires.GetNode<ColorRect>("WireTop2").Color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireTop3").Color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireTop1").Color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+
+                _wires.GetNode<ColorRect>("WireBottom3").Color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireBottom2").Color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireBottom1").Color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+            }
+            else
+            {
+                _wires.GetNode<ColorRect>("WireTop3").Color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireTop1").Color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireTop2").Color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+
+                _wires.GetNode<ColorRect>("WireBottom1").Color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireBottom3").Color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                _wires.GetNode<ColorRect>("WireBottom2").Color = new Color(0.0f, 0.0f, 1.0f, 1.0f);
+            }
+
+        }
+    }
+
+    public async void EndFingerLock()
+    {
+
+        TweenFingerLockClosed(_hovering.GetNode<Node3D>("Mesh/Rotate"));
+        await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
+        _wires.Visible = false;
+        await ToSignal(GetTree().CreateTimer(1f), "timeout");
+        _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/FingerDone.mp3");
+        _sound.Play();
+        await ToSignal(GetTree().CreateTimer(2f), "timeout");
+        CharacterBody3D toDestory = _hovering;
+        _hovering = null;
+        _opened.Emitting = true;
+        toDestory.QueueFree();
+        GetMouseCollision();
+        _leftButton.Visible = true;
+        _rightButton.Visible = true;
+        _upButton.Visible = true;
+        _downButton.Visible = true;
+        _fingerLockOpen = false;
+        _wireOneDone = false;
+        _wireTwoDone = false;
+        _wireThreeDone = false;
+        _screws.GetNode<Button>("Unscrew1").Disabled = false; _screws.GetNode<Button>("Unscrew1").Rotation = 0;
+        _screws.GetNode<Button>("Unscrew2").Disabled = false; _screws.GetNode<Button>("Unscrew2").Rotation = 0;
+        _screws.GetNode<Button>("Unscrew3").Disabled = false; _screws.GetNode<Button>("Unscrew3").Rotation = 0;
+        _screws.GetNode<Button>("Unscrew4").Disabled = false; _screws.GetNode<Button>("Unscrew4").Rotation = 0;
+    }
+
+    public void TweenFingerLock(Node3D toTween, float rotateValue)
+    {
+        GD.Print(_hovering.GetNode<Node3D>("Mesh/Rotate").Name);
+        Tween tween = CreateTween();
+        tween.SetTrans(Tween.TransitionType.Elastic);
+        tween.SetEase(Tween.EaseType.Out);
+        tween.TweenProperty(toTween, "rotation", toTween.Rotation + new Vector3(toTween.Rotation.X, toTween.Rotation.Y, toTween.Rotation.Z + Mathf.DegToRad(rotateValue)), 2f);
+    }
+
+    public void TweenFingerLockClosed(Node3D toTween)
+    {
+        GD.Print(_hovering.GetNode<Node3D>("Mesh/Rotate").Name);
+        Tween tween = CreateTween();
+        tween.SetTrans(Tween.TransitionType.Elastic);
+        tween.SetEase(Tween.EaseType.Out);
+        tween.TweenProperty(toTween, "rotation", new Vector3(toTween.Rotation.X, toTween.Rotation.Y, 0f), 1f);
+    }
+    public bool IsNear(Vector2 vector1, Vector2 vector2, float threshold)
+    {
+        GD.Print(vector1.DistanceTo(vector2));
+        return vector1.DistanceTo(vector2) < threshold;
     }
 }

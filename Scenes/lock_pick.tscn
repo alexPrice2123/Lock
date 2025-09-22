@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://bliu26vslffs7" path="res://callensblendfiles/ComboBaseMat.tres" id="1_s0jpg"]
 [ext_resource type="Material" uid="uid://c7mvotr13e3de" path="res://Assets/3D/BoxMat.tres" id="2_24s05"]
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_3dqn0"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_s0jpg"]
 _surfaces = [{
 "aabb": AABB(-0.00190516, 0.0214822, -0.00244053, 0.0029323, 0.0389004, 0.0038415),
 "format": 34359742465,
@@ -59,7 +59,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("//+5DqLysMAAALkOovKwwP//DPwhzvzFAAAM/CHO/MUAALkOXA3/3wAAuQ6i8v+f//+5DlwNd/j/////Q5z//wAADPwhzv//AAD//0Oc/////wz83TGq6QAAuQ5cDXf4AAAM/N0xqukAAP//u2P///////+7Y///AAAM/N0x////////u2NU1f//DPwhzlTV/////0OcVNX//7kOovJU1f//DPzdMVTV//+5DlwNVNUAAP//Q5xU1QAADPzdMVTVAAD//7tjVNUAALkOXA1U1QAAuQ6i8lTVAAAM/CHOVNUAAIvi////v///i+L///+/AABzHf///78AAPIDIc7/n///8gMhzv+fAAAAALtjqcr//3MdAAD/////i+IAAP//AACL4gAA/////3MdAABU1f//i+IAAFTV///yAyHOVNX//4vi//9U1QAA8gMhzlTVAABzHf//VNUAAAAAu2NU1QAAi+L//1TVAACL4gAAVNX//3Md////v///AABDnFTV///yA90xVNX//wAAu2NU1f//RfFcDVTV//9zHf//VNX//0XxovJU1QAAAABDnFTVAABF8aLyVNUAAPID3TFU1QAAcx0AAFTVAABF8VwNVNUAAHMdAAD/////AAC7Y6nKAADyA90xqcr///ID3TGpyv//8gPdMf/fAADyA90x/9///7kOXA3/3wAAcx0AAHf4//9zHQAAd/j//wz83TH/////RfFcDarpAABF8VwNqukAAEXxXA13+P//i+IAAHf4//9F8VwNd/gAAIviAAB3+AAAAABDnFS1///yAyHOVLX//wAAQ5xUtQAA8gMhzlS1//+5DqLy/5///3Md//+wwAAAcx3//7DA//8M/CHO//8AAEXxovL8xf//RfGi8vzF//9F8aLysMAAAIvi//+wwAAARfGi8rDA//+L4v//sMAAAAAAu2P/v///AABDnP+///8AALtj/78AAAAAQ5z/v1YNqPJWDajy/+L/HP/i/xwAAP9/AAD/f/ND80P/f5K3/3+St/9/krcEtQS180PzQwS1BLX/f2zI/39syP9/bMiqKqoqqiqqKqoqqiqqKqoqqiqqKqoqqipU1VTVVNVU1VTVVNVU1VTVVNVU1VTVVNX///////////////8AAP9/AAD/fwAA/3//v/+//7//v/+//7+qKqoqqiqqKqoqqiqqKqoqVNVU1VTVVNVU1VTVVNVU1VTVVNX/////qiqqKqoqqiqqKqoqqiqqKqoqqiqqKqoqVNVU1VTVVNVU1VTVVNVU1VTVVNX/v/+/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/80PzQ/ND80P/f2zIBLUEtQS1BLULvAu8C7wLvAu8C7wLvAu8AAD/fwAA/38AAP9/AAD/fwAA/39WDajyVg2o8v9/krf/4v8c/+L/HKjyVg2o8lYNqPJWDajyVg0AAP9/AAD/fwAA/38AAP9/")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_3dqn0")
+shadow_mesh = SubResource("ArrayMesh_s0jpg")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s0jpg"]
 emission_enabled = true
