@@ -152,6 +152,10 @@ public partial class Player : CharacterBody3D
             {
                 _hasLockPick = true;
             }
+            else if (_lastSeen.Name == "box3")
+            {
+                _hasScrewdriver = true;
+            }
             if (_lastSeen is Safe safe) { _moneyTimer.Text = "$" + safe._money.ToString(); }
             LockStart();
         }
@@ -425,7 +429,7 @@ public partial class Player : CharacterBody3D
                             _sound.Stream = GD.Load<AudioStream>("res://Assets/Sounds/ComboClick.mp3");
                             _sound.Play();
 
-                            if (_minigameClicks >= 10)
+                            if (_minigameClicks >= 5)
                             {
                                 _opened.Emitting = true;
                                 CharacterBody3D toDestory = _hovering;
@@ -467,8 +471,8 @@ public partial class Player : CharacterBody3D
                                 buttons._direction = 0;
                                 tweenTimer = 0;
                                 FingerLockHandler();
-                            }  
-                        } 
+                            }
+                        }
                     }
                     else if (buttons._direction == 12) //Screw Two
                     {
@@ -486,12 +490,12 @@ public partial class Player : CharacterBody3D
                                 buttons._direction = 0;
                                 tweenTimer = 0;
                                 FingerLockHandler();
-                            }  
-                        } 
+                            }
+                        }
                     }
                     else if (buttons._direction == 13) //Screw Three
                     {
-                       if (_hasScrewdriver == false)
+                        if (_hasScrewdriver == false)
                         {
                             buttons._direction = 0;
                         }
@@ -505,8 +509,8 @@ public partial class Player : CharacterBody3D
                                 buttons._direction = 0;
                                 tweenTimer = 0;
                                 FingerLockHandler();
-                            }  
-                        } 
+                            }
+                        }
                     }
                     else if (buttons._direction == 14) //Screw Four
                     {
@@ -524,8 +528,8 @@ public partial class Player : CharacterBody3D
                                 buttons._direction = 0;
                                 tweenTimer = 0;
                                 FingerLockHandler();
-                            }  
-                        } 
+                            }
+                        }
                     }
                     else if (buttons._direction == 21 && _wireOneDone == false) //Wire One Down
                     {
@@ -711,6 +715,11 @@ public partial class Player : CharacterBody3D
             _head.GlobalRotation = _head.GlobalRotation.Lerp(new Vector3(0f, 0f, 0f), (float)delta * 5f);
             _cam.GlobalRotation = _cam.GlobalRotation.Lerp(new Vector3(0f, 0f, 0f), (float)delta * 5f);
 
+            if (IsNear3(_cam.GlobalRotation, new Vector3(0f,0f,0f), 0.05f) == false && IsNear3(_lastSeen.GlobalPosition, _holdPosition.GlobalPosition, 0.05f) == false)
+            {
+                LockStart();
+            }
+
             _lastSeen.GetNode<Label3D>("Prompt").Visible = false;
 
             /*Vector2 mousePosition = GetViewport().GetMousePosition();
@@ -804,7 +813,7 @@ public partial class Player : CharacterBody3D
         return mostFacingFace;
     }
 
-    public void LockStart()
+    public async void LockStart()
     {
         if (_hovering != null)
         {
@@ -958,6 +967,8 @@ public partial class Player : CharacterBody3D
         && _screws.GetNode<Button>("Unscrew4").Disabled == true)
         {
             _fingerLockOpen = true;
+            _hasScrewdriver = false;
+            _screwdriver.Visible = false;
             TweenFingerLock(_hovering.GetNode<Node3D>("Mesh/Rotate"), -165f);
             await ToSignal(GetTree().CreateTimer(0.2f), "timeout");
             _wires.Visible = true;
@@ -1043,6 +1054,12 @@ public partial class Player : CharacterBody3D
         tween.TweenProperty(toTween, "rotation", new Vector3(toTween.Rotation.X, toTween.Rotation.Y, 0f), 1f);
     }
     public bool IsNear(Vector2 vector1, Vector2 vector2, float threshold)
+    {
+        GD.Print(vector1.DistanceTo(vector2));
+        return vector1.DistanceTo(vector2) < threshold;
+    }
+    
+    public bool IsNear3(Vector3 vector1, Vector3 vector2, float threshold)
     {
         GD.Print(vector1.DistanceTo(vector2));
         return vector1.DistanceTo(vector2) < threshold;
