@@ -1,0 +1,97 @@
+[gd_scene load_steps=15 format=3 uid="uid://beg6jgnr2a7wr"]
+
+[ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_wljyn"]
+[ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="2_q3x3s"]
+[ext_resource type="PackedScene" uid="uid://7c8uhm5q17ny" path="res://Scenes/cardboardsafe.tscn" id="3_xcwjq"]
+[ext_resource type="PackedScene" uid="uid://cdld36yps3e2b" path="res://Scenes/keylock.tscn" id="6_8l8e5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jsg5"]
+albedo_color = Color(0.487662, 0.487662, 0.487662, 1)
+metallic = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8se0"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_3jsg5"]
+flip_faces = true
+size = Vector3(1.02, 1.02, 1.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3jsg5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mttsr"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="Curve" id="Curve_qdbxb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bt42n"]
+curve = SubResource("Curve_qdbxb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_svx06"]
+lifetime_randomness = 1.0
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+radial_velocity_min = 0.499978
+radial_velocity_max = 0.499978
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_bt42n")
+
+[sub_resource type="BoxMesh" id="BoxMesh_cjcnj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_342nx"]
+size = Vector3(0.797852, 0.819, 0.165451)
+
+[node name="box1" type="CharacterBody3D"]
+script = ExtResource("1_wljyn")
+
+[node name="Glow" type="MeshInstance3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_3jsg5")
+material_overlay = SubResource("StandardMaterial3D_k8se0")
+mesh = SubResource("BoxMesh_3jsg5")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_3jsg5")
+disabled = true
+
+[node name="Prompt" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.744856, 0)
+visible = false
+billboard = 1
+text = "Click To Select"
+font = ExtResource("2_q3x3s")
+
+[node name="Box" parent="." instance=ExtResource("3_xcwjq")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Opened" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0.000560426, -0.000597321, -0.000559995, 1, 0.000707333, 0.000597724, -0.000706993, 1, 0, 0.431865, 0)
+material_override = SubResource("StandardMaterial3D_mttsr")
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_svx06")
+draw_pass_1 = SubResource("BoxMesh_cjcnj")
+
+[node name="KeyLock" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, -0.00116193, -5.96046e-08, -0.093244)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyLock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0123138, 0.545723)
+shape = SubResource("BoxShape3D_342nx")
+
+[node name="RotationPoint" type="Node3D" parent="KeyLock"]
+transform = Transform3D(1, -7.10543e-15, 3.19744e-14, 3.55271e-15, 1, -3.55271e-15, -3.55271e-15, 4.23517e-22, 1, -0.0061337, 0.148059, 0.62576)
+
+[node name="Mesh" parent="KeyLock/RotationPoint" instance=ExtResource("6_8l8e5")]
+transform = Transform3D(-2.70282e-07, 0, 2.61607, 0, 2.61607, 0, -2.61607, 0, -2.70282e-07, 0.000350379, -0.243938, 0.000301838)

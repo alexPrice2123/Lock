@@ -12,6 +12,7 @@ public partial class Ui : Control
     public override void _Ready()
     {
         _transition = GetNode<ColorRect>("Transition");
+        _transition.Visible = true;
         _transitionMat = _transition.Material as ShaderMaterial;
     }
 
@@ -81,11 +82,61 @@ public partial class Ui : Control
     public void _on_lock_pick_button_up()
     {
         if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
-        _direction =  7;
+        _direction = 7;
     }
     public void _on_click_button_down()
     {
         if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
-        _direction =  8;
+        _direction = 8;
+    }
+    public void _on_unscrew_1_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 11;
+    }
+    public void _on_unscrew_2_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 12;
+    }
+    public void _on_unscrew_3_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 13;
+    }
+    public void _on_unscrew_4_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 14;
+    }
+    public void _on_wire_1_button_down()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 21;
+    }
+    public void _on_wire_1_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 31;
+    }
+    public void _on_wire_2_button_down()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 22;
+    }
+    public void _on_wire_2_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 32;
+    }
+    public void _on_wire_3_button_down()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction = 23;
+    }
+    public void _on_wire_3_button_up()
+    {
+        if (_player is Player player) { if (player.tweenTimer > 0) { return; } }
+        _direction =  33;
     }
 } 

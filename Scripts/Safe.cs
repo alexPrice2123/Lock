@@ -16,10 +16,20 @@ public partial class Safe : CharacterBody3D
     {
         _prompt = GetNode<Label3D>("Prompt");
         _glow = GetNode<MeshInstance3D>("Glow");
-        if (Name == "tutBox")
+        if (Name == "box1")
         {
             _money = 100f;
-            _moneyLossPF = 0.005f;
+            _moneyLossPF = 0.05f;
+        }
+        else if (Name == "box2")
+        {
+            _money = 100f*2f;
+            _moneyLossPF = 0.05f*1.5f;
+        }
+        else if (Name == "box3")
+        {
+            _money = 100f*4f;
+            _moneyLossPF = 0.05f*(1.5f*2f);
         }
     }
     public override void _PhysicsProcess(double delta)

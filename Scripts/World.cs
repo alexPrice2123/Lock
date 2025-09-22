@@ -3,9 +3,9 @@ using System;
 
 public partial class World : Node3D
 {
-    private PackedScene _tutBox = GD.Load<PackedScene>("res://Scenes/tutBox.tscn");
     private Node3D _spawn;
     private Node3D _safeHolder;
+    private int _level = 0;
     public override void _Ready()
     {
         _spawn = GetNode<Node3D>("BoxSpawn");
@@ -16,7 +16,14 @@ public partial class World : Node3D
     {
         if (_safeHolder.GetChildren().Count == 0)
         {
-            CharacterBody3D safeInstance = _tutBox.Instantiate<CharacterBody3D>(); // Create monster instance
+            _level += 1;
+            if (_level > 3)
+            {
+                if (GetNode<CharacterBody3D>("Player") is Player player) { player._finished = true; }
+                return;
+            }
+            PackedScene _box = GD.Load<PackedScene>("res://Scenes/box"+_level.ToString()+".tscn");
+            CharacterBody3D safeInstance = _box.Instantiate<CharacterBody3D>(); // Create monster instance
             _safeHolder.AddChild(safeInstance);                                             // Add monster to holder node
             safeInstance.GlobalPosition = _spawn.GlobalPosition + new Vector3(0f, 5.5f, 0f);
             safeInstance.GlobalRotation = _spawn.GlobalRotation;

@@ -11,7 +11,6 @@ public partial class MainMenu : Control
     public override void _Ready()
     {
         _transition = GetNode<ColorRect>("Transition");
-        _transition.Visible = true;
         _transitionMat = _transition.Material as ShaderMaterial;
     }
 
