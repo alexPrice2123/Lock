@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://htjmheud6m3r" path="res://Scripts/World.cs" id="1_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://dy0qk0th8hsaf" path="res://Scenes/player.tscn" id="1_a02cp"]
-[ext_resource type="PackedScene" uid="uid://bfm7shjnumuu5" path="res://callensblendfiles/room.blend" id="3_8j60k"]
+[ext_resource type="PackedScene" uid="uid://bfm7shjnumuu5" path="res://Assets/callensblendfiles/room.blend" id="3_8j60k"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_5a7ea")
