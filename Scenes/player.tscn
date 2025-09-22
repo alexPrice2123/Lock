@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://xweue20jyfly" path="res://Scripts/Player.cs" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://cli8n3lygnumt" path="res://Scenes/ui.tscn" id="2_cvnsp"]
-[ext_resource type="Material" uid="uid://bliu26vslffs7" path="res://callensblendfiles/ComboBaseMat.tres" id="2_vgqql"]
+[ext_resource type="Material" path="res://callensblendfiles/ComboBaseMat.tres" id="2_vgqql"]
 [ext_resource type="Material" uid="uid://c7mvotr13e3de" path="res://Assets/3D/BoxMat.tres" id="3_fkybt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f60y1"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxopb3uhgn61k"]
 
-[ext_resource type="PackedScene" uid="uid://brlp7ii2olwqo" path="res://callensblendfiles/CombinationLock.blend" id="1_0csys"]
+[ext_resource type="PackedScene" path="res://callensblendfiles/CombinationLock.blend" id="1_0csys"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bt42n"]
 size = Vector3(0.250244, 1, 0.121094)

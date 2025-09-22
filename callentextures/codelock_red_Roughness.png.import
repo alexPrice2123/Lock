@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fbivaiy36est"
-path="res://.godot/imported/UI_D_BUTTON.png-205ed31a605d36a3ae5c893a4b345311.ctex"
+uid="uid://e6bt1sr80qx8"
+path="res://.godot/imported/codelock_red_Roughness.png-f420cdba080f30012273cbed2113f5e5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/UI_ART/UI_D_BUTTON.png"
-dest_files=["res://.godot/imported/UI_D_BUTTON.png-205ed31a605d36a3ae5c893a4b345311.ctex"]
+source_file="res://callentextures/codelock_red_Roughness.png"
+dest_files=["res://.godot/imported/codelock_red_Roughness.png-f420cdba080f30012273cbed2113f5e5.ctex"]
 
 [params]
 

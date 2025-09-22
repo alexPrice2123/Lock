@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fbivaiy36est"
-path="res://.godot/imported/UI_D_BUTTON.png-205ed31a605d36a3ae5c893a4b345311.ctex"
+uid="uid://1d6b8uxktvs6"
+path="res://.godot/imported/codelock_green_Normal.png-55084c3077d7afec2bff33c116d93766.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/UI_ART/UI_D_BUTTON.png"
-dest_files=["res://.godot/imported/UI_D_BUTTON.png-205ed31a605d36a3ae5c893a4b345311.ctex"]
+source_file="res://callentextures/codelock_green_Normal.png"
+dest_files=["res://.godot/imported/codelock_green_Normal.png-55084c3077d7afec2bff33c116d93766.ctex"]
 
 [params]
 

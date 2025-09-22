@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fbivaiy36est"
-path="res://.godot/imported/UI_D_BUTTON.png-205ed31a605d36a3ae5c893a4b345311.ctex"
+uid="uid://bagp8jq11xf3m"
+path="res://.godot/imported/LOCK _IN_poster_3000_by_3700_px.png-115c76c1537b4400496ff369ac7d1bcc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/UI_ART/UI_D_BUTTON.png"
-dest_files=["res://.godot/imported/UI_D_BUTTON.png-205ed31a605d36a3ae5c893a4b345311.ctex"]
+source_file="res://Assets/2D/ASSET_TEXTURES/LOCK _IN_poster_3000_by_3700_px.png"
+dest_files=["res://.godot/imported/LOCK _IN_poster_3000_by_3700_px.png-115c76c1537b4400496ff369ac7d1bcc.ctex"]
 
 [params]
 

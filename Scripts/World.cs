@@ -17,7 +17,7 @@ public partial class World : Node3D
         if (_safeHolder.GetChildren().Count == 0)
         {
             _level += 1;
-            if (_level > 3)
+            if (_level > 4)
             {
                 if (GetNode<CharacterBody3D>("Player") is Player player) { player._finished = true; }
                 return;

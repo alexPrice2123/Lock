@@ -1,7 +1,6 @@
-[gd_scene load_steps=25 format=4 uid="uid://cdld36yps3e2b"]
+[gd_scene load_steps=24 format=4 uid="uid://cdld36yps3e2b"]
 
-[ext_resource type="PackedScene" uid="uid://cwwe4g7ywgjld" path="res://callensblendfiles/normallock.blend" id="1_hq4px"]
-[ext_resource type="Material" uid="uid://bliu26vslffs7" path="res://callensblendfiles/ComboBaseMat.tres" id="2_oni4y"]
+[ext_resource type="Material" path="res://callensblendfiles/ComboBaseMat.tres" id="2_oni4y"]
 [ext_resource type="Material" uid="uid://c7mvotr13e3de" path="res://Assets/3D/BoxMat.tres" id="3_q3ui4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v1g5"]
@@ -193,7 +192,7 @@ emission = Color(1, 1, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_3v1g5"]
 size = Vector3(0.328125, 9.04395, 0.0869141)
 
-[node name="Keylock" instance=ExtResource("1_hq4px")]
+[node name="Keylock"]
 
 [node name="Cube" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.86374e-05, 0.000313245, 5.23627e-05)

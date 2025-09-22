@@ -889,7 +889,7 @@ public partial class Player : CharacterBody3D
         _comboDigitCount = 0;
         _comboCodeText.Text = "";
 
-        TweenBoxRotation(box.GetNode<MeshInstance3D>("Box/Top1"), -145f);
+        TweenBoxRotation(box.GetNode<MeshInstance3D>("Box/top1"), -145f);
         TweenBoxRotation(box.GetNode<MeshInstance3D>("Box/Cube_002"), 145f);
         await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
         box.GetNode<GpuParticles3D>("Opened").Emitting = true;
