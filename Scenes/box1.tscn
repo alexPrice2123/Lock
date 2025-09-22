@@ -95,3 +95,51 @@ transform = Transform3D(1, -7.10543e-15, 3.19744e-14, 3.55271e-15, 1, -3.55271e-
 
 [node name="Mesh" parent="KeyLock/RotationPoint" instance=ExtResource("6_8l8e5")]
 transform = Transform3D(-2.70282e-07, 0, 2.61607, 0, 2.61607, 0, -2.61607, 0, -2.70282e-07, 0.000350379, -0.243938, 0.000301838)
+
+[node name="Number1" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.253272, 0.485319, 0.308727)
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "1"
+font = ExtResource("2_q3x3s")
+outline_size = 42
+
+[node name="Number2" type="Label3D" parent="."]
+transform = Transform3D(1.91069e-15, -7.30144e-30, 1, 4.37114e-08, 1, -1.59578e-37, -1, 4.37114e-08, 1.91069e-15, 0.467586, -0.298379, 0.308727)
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "1"
+font = ExtResource("2_q3x3s")
+outline_size = 42
+
+[node name="Number3" type="Label3D" parent="."]
+transform = Transform3D(1, 8.74228e-08, -7.64274e-15, -3.82137e-15, -4.37114e-08, -1, -8.74228e-08, 1, -4.37114e-08, 0.324, -0.475148, 0.310102)
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "1"
+font = ExtResource("2_q3x3s")
+outline_size = 42
+
+[node name="Number4" type="Label3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, 8.74228e-08, 7.64274e-15, -1, -0.273993, -0.298053, -0.469495)
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "1"
+font = ExtResource("2_q3x3s")
+outline_size = 42
+
+[node name="Number5" type="Label3D" parent="."]
+transform = Transform3D(1.31134e-07, 1.14641e-14, -1, -8.74228e-08, 1, 0, 1, 8.74228e-08, 1.31134e-07, -0.466556, -0.281469, -0.318364)
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "1"
+font = ExtResource("2_q3x3s")
+outline_size = 42
+
+[node name="Number6" type="Label3D" parent="."]
+transform = Transform3D(1, 8.74228e-08, 1.74846e-07, -8.74228e-08, 1, 0, -1.74846e-07, -1.52855e-14, 1, -0.332716, 0.307944, 0.470704)
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "1"
+font = ExtResource("2_q3x3s")
+outline_size = 42

@@ -29,7 +29,7 @@ public partial class Ui : Control
     public bool IsNumberInRange(float number, float min, float max)
     {
         if (number >= min && number <= max)
-        {
+        {   
             return true;
         }
         else

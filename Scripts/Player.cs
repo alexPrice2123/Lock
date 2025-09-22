@@ -27,7 +27,8 @@ public partial class Player : CharacterBody3D
     private Label _moneyTimer;
     private Label _moneyEarned;
     private Label _playerMoney;
-    private CharacterBody3D _lockPick;
+    private MeshInstance3D _lockPick;
+    private MeshInstance3D _screwdriver;
     private Button _lockButton;
     private Button _clickLockButton;
     private Label _minigamePoints;
@@ -60,6 +61,7 @@ public partial class Player : CharacterBody3D
     private bool _wireTwoDone = false;
     private bool _wireThreeDone = false;
     public bool _finished = false;
+    public bool _hasScrewdriver = false;
 
 
 
@@ -87,12 +89,13 @@ public partial class Player : CharacterBody3D
         _moneyEarned = GetNode<Label>("UI/MoneyEarned");
         _playerMoney = GetNode<Label>("UI/Money");
         _playerMoney.Text = "$" + _money;
-        _lockPick = GetNode<CharacterBody3D>("Head/Camera3D/LockPick");
+        _lockPick = GetNode<MeshInstance3D>("Head/Camera3D/LockPick");
         _lockButton = GetNode<Button>("UI/LockPick");
         _clickLockButton = GetNode<Button>("UI/Click");
         _minigamePoints = GetNode<Label>("UI/Click/MinigameClicks");
         _screws = GetNode<Control>("UI/Screws");
         _wires = GetNode<Control>("UI/Wires");
+        _screwdriver = GetNode<MeshInstance3D>("Head/Camera3D/Screwdriver");
         if (_ui is Ui ui) { ui._player = this; }
         _rng.Randomize();
         _comboCode = _rng.RandiRange(1000, 9999);
@@ -233,6 +236,11 @@ public partial class Player : CharacterBody3D
         if (_hasLockPick == true && _lockPick.Visible == false)
         {
             _lockPick.Visible = true;
+        }
+
+        if (_hasScrewdriver == true && _screwdriver.Visible == false)
+        {
+            _screwdriver.Visible = true;
         }
 
         if (_holdingItem == true && _moneyTimer.Visible == true)
@@ -445,51 +453,79 @@ public partial class Player : CharacterBody3D
                     }
                     else if (buttons._direction == 11) //Screw One
                     {
-                        tweenTimer += 1;
-                        _screws.GetNode<Button>("Unscrew1").Rotation -= 3;
-                        _screws.GetNode<Button>("Unscrew1").Disabled = true;
-                        if (tweenTimer >= 20)
+                        if (_hasScrewdriver == false)
                         {
                             buttons._direction = 0;
-                            tweenTimer = 0;
-                            FingerLockHandler();
                         }
+                        else
+                        {
+                            tweenTimer += 1;
+                            _screws.GetNode<Button>("Unscrew1").Rotation -= 3;
+                            _screws.GetNode<Button>("Unscrew1").Disabled = true;
+                            if (tweenTimer >= 20)
+                            {
+                                buttons._direction = 0;
+                                tweenTimer = 0;
+                                FingerLockHandler();
+                            }  
+                        } 
                     }
                     else if (buttons._direction == 12) //Screw Two
                     {
-                        tweenTimer += 1;
-                        _screws.GetNode<Button>("Unscrew2").Rotation -= 3;
-                        _screws.GetNode<Button>("Unscrew2").Disabled = true;
-                        if (tweenTimer >= 20)
+                        if (_hasScrewdriver == false)
                         {
                             buttons._direction = 0;
-                            tweenTimer = 0;
-                            FingerLockHandler();
                         }
+                        else
+                        {
+                            tweenTimer += 1;
+                            _screws.GetNode<Button>("Unscrew2").Rotation -= 3;
+                            _screws.GetNode<Button>("Unscrew2").Disabled = true;
+                            if (tweenTimer >= 20)
+                            {
+                                buttons._direction = 0;
+                                tweenTimer = 0;
+                                FingerLockHandler();
+                            }  
+                        } 
                     }
                     else if (buttons._direction == 13) //Screw Three
                     {
-                        tweenTimer += 1;
-                        _screws.GetNode<Button>("Unscrew3").Rotation -= 3;
-                        _screws.GetNode<Button>("Unscrew3").Disabled = true;
-                        if (tweenTimer >= 20)
+                       if (_hasScrewdriver == false)
                         {
                             buttons._direction = 0;
-                            tweenTimer = 0;
-                            FingerLockHandler();
                         }
+                        else
+                        {
+                            tweenTimer += 1;
+                            _screws.GetNode<Button>("Unscrew3").Rotation -= 3;
+                            _screws.GetNode<Button>("Unscrew3").Disabled = true;
+                            if (tweenTimer >= 20)
+                            {
+                                buttons._direction = 0;
+                                tweenTimer = 0;
+                                FingerLockHandler();
+                            }  
+                        } 
                     }
                     else if (buttons._direction == 14) //Screw Four
                     {
-                        tweenTimer += 1;
-                        _screws.GetNode<Button>("Unscrew4").Rotation -= 3;
-                        _screws.GetNode<Button>("Unscrew4").Disabled = true;
-                        if (tweenTimer >= 20)
+                        if (_hasScrewdriver == false)
                         {
                             buttons._direction = 0;
-                            tweenTimer = 0;
-                            FingerLockHandler();
                         }
+                        else
+                        {
+                            tweenTimer += 1;
+                            _screws.GetNode<Button>("Unscrew4").Rotation -= 3;
+                            _screws.GetNode<Button>("Unscrew4").Disabled = true;
+                            if (tweenTimer >= 20)
+                            {
+                                buttons._direction = 0;
+                                tweenTimer = 0;
+                                FingerLockHandler();
+                            }  
+                        } 
                     }
                     else if (buttons._direction == 21 && _wireOneDone == false) //Wire One Down
                     {

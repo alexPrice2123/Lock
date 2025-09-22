@@ -1,9 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cbdqthyevegia"]
+[gd_scene load_steps=15 format=3 uid="uid://blpdmoxhf0rfv"]
 
-[ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_0oblr"]
-[ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="2_clps5"]
-[ext_resource type="PackedScene" uid="uid://7c8uhm5q17ny" path="res://Scenes/cardboardsafe.tscn" id="3_5a1jh"]
-[ext_resource type="PackedScene" uid="uid://dhscqkvvdrk50" path="res://Scenes/finger_lock.tscn" id="4_0oblr"]
+[ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_jgm3w"]
+[ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="2_m0u85"]
+[ext_resource type="PackedScene" uid="uid://7c8uhm5q17ny" path="res://Scenes/cardboardsafe.tscn" id="3_lmobu"]
+[ext_resource type="PackedScene" uid="uid://dhscqkvvdrk50" path="res://Scenes/finger_lock.tscn" id="4_x8xjl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jsg5"]
 albedo_color = Color(0.487662, 0.487662, 0.487662, 1)
@@ -51,7 +51,7 @@ scale_curve = SubResource("CurveTexture_bt42n")
 size = Vector3(0.797852, 0.819, 0.165451)
 
 [node name="box3" type="CharacterBody3D"]
-script = ExtResource("1_0oblr")
+script = ExtResource("1_jgm3w")
 
 [node name="Glow" type="MeshInstance3D" parent="."]
 visible = false
@@ -68,9 +68,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.744856, 0)
 visible = false
 billboard = 1
 text = "Click To Select"
-font = ExtResource("2_clps5")
+font = ExtResource("2_m0u85")
 
-[node name="Box" parent="." instance=ExtResource("3_5a1jh")]
+[node name="Box" parent="." instance=ExtResource("3_lmobu")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="Opened" type="GPUParticles3D" parent="."]
@@ -86,7 +86,7 @@ draw_pass_1 = SubResource("BoxMesh_cjcnj")
 [node name="FingerLock" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0.00429183, 0.0044058, -0.121345)
 
-[node name="Mesh" parent="FingerLock" instance=ExtResource("4_0oblr")]
+[node name="Mesh" parent="FingerLock" instance=ExtResource("4_x8xjl")]
 transform = Transform3D(1.35909e-08, 2.04857e-23, -0.103641, 0, 0.103641, -1.20777e-22, 0.103641, 7.36414e-16, 1.35909e-08, -0.000383793, -0.233676, 0.692967)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FingerLock"]
@@ -98,7 +98,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.2532
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(1, 1, 1, 1)
 text = "1"
-font = ExtResource("2_clps5")
+font = ExtResource("2_m0u85")
 outline_size = 42
 
 [node name="Number2" type="Label3D" parent="."]
@@ -106,7 +106,7 @@ transform = Transform3D(1.91069e-15, -7.30144e-30, 1, 4.37114e-08, 1, -1.59578e-
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(1, 1, 1, 1)
 text = "1"
-font = ExtResource("2_clps5")
+font = ExtResource("2_m0u85")
 outline_size = 42
 
 [node name="Number3" type="Label3D" parent="."]
@@ -114,7 +114,7 @@ transform = Transform3D(1, 8.74228e-08, -7.64274e-15, -3.82137e-15, -4.37114e-08
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(1, 1, 1, 1)
 text = "1"
-font = ExtResource("2_clps5")
+font = ExtResource("2_m0u85")
 outline_size = 42
 
 [node name="Number4" type="Label3D" parent="."]
@@ -122,7 +122,7 @@ transform = Transform3D(-1, -8.74228e-08, -8.74228e-08, -8.74228e-08, 1, 0, 8.74
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(1, 1, 1, 1)
 text = "1"
-font = ExtResource("2_clps5")
+font = ExtResource("2_m0u85")
 outline_size = 42
 
 [node name="Number5" type="Label3D" parent="."]
@@ -130,7 +130,7 @@ transform = Transform3D(1.31134e-07, 1.14641e-14, -1, -8.74228e-08, 1, 0, 1, 8.7
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(1, 1, 1, 1)
 text = "1"
-font = ExtResource("2_clps5")
+font = ExtResource("2_m0u85")
 outline_size = 42
 
 [node name="Number6" type="Label3D" parent="."]
@@ -138,5 +138,5 @@ transform = Transform3D(1, 8.74228e-08, 1.74846e-07, -8.74228e-08, 1, 0, -1.7484
 modulate = Color(0, 0, 0, 1)
 outline_modulate = Color(1, 1, 1, 1)
 text = "1"
-font = ExtResource("2_clps5")
+font = ExtResource("2_m0u85")
 outline_size = 42
