@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_jgm3w"]
 [ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="2_m0u85"]
 [ext_resource type="PackedScene" uid="uid://7c8uhm5q17ny" path="res://Scenes/cardboardsafe.tscn" id="3_lmobu"]
-[ext_resource type="PackedScene" uid="uid://dhscqkvvdrk50" path="res://Scenes/finger_lock.tscn" id="4_x8xjl"]
+[ext_resource type="PackedScene" uid="uid://dvukt8ugk24mv" path="res://Scenes/code_lock.tscn" id="4_jgm3w"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jsg5"]
 albedo_color = Color(0.487662, 0.487662, 0.487662, 1)
@@ -83,15 +83,15 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_svx06")
 draw_pass_1 = SubResource("BoxMesh_cjcnj")
 
-[node name="FingerLock" type="CharacterBody3D" parent="."]
+[node name="CodeLock" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 0.00429183, 0.0044058, -0.121345)
 
-[node name="Mesh" parent="FingerLock" instance=ExtResource("4_x8xjl")]
-transform = Transform3D(1.35909e-08, 2.04857e-23, -0.103641, 0, 0.103641, -1.20777e-22, 0.103641, 7.36414e-16, 1.35909e-08, -0.000383793, -0.233676, 0.692967)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FingerLock"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CodeLock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0123138, 0.545723)
 shape = SubResource("BoxShape3D_clps5")
+
+[node name="Mesh" parent="CodeLock" instance=ExtResource("4_jgm3w")]
+transform = Transform3D(-4.38901e-07, 0, 2.00817, 0, 2.00817, 0, -2.00817, 0, -4.38901e-07, 0.00962702, -0.239789, 0.70242)
 
 [node name="Number1" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.253272, 0.485319, 0.308727)

@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=4 uid="uid://dhscqkvvdrk50"]
+[gd_scene load_steps=14 format=4 uid="uid://dhscqkvvdrk50"]
 
 [ext_resource type="ArrayMesh" uid="uid://cwfqe0hw6qytv" path="res://Assets/3D/fingerprint.obj" id="1_63eda"]
+[ext_resource type="Texture2D" uid="uid://cuvs51cc33r0l" path="res://Assets/3D/finger-lock-textures-basecolour.png" id="1_81j62"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g82in"]
 albedo_color = Color(0.654232, 0.654232, 0.654232, 1)
+albedo_texture = ExtResource("1_81j62")
 metallic = 1.0
 roughness = 0.5
 
@@ -45,7 +47,7 @@ shadow_mesh = SubResource("ArrayMesh_fv7hc")
 resource_name = "lock"
 cull_mode = 2
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_a0mxi"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_81j62"]
 _surfaces = [{
 "aabb": AABB(-1, -7.02326, -5.86281, 2, 10.522, 6.86281),
 "format": 34896613377,
@@ -77,7 +79,7 @@ _surfaces = [{
 "vertex_data": PackedByteArray("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")
 }]
 blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_a0mxi")
+shadow_mesh = SubResource("ArrayMesh_81j62")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_63eda"]
 albedo_color = Color(0, 0, 0, 1)
