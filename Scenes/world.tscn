@@ -2,24 +2,13 @@
 
 [ext_resource type="Script" uid="uid://htjmheud6m3r" path="res://Scripts/World.cs" id="1_5a7ea"]
 [ext_resource type="PackedScene" uid="uid://dy0qk0th8hsaf" path="res://Scenes/player.tscn" id="1_a02cp"]
-[ext_resource type="PackedScene" uid="uid://bfm7shjnumuu5" path="res://callensblendfiles/room.blend" id="3_8j60k"]
+[ext_resource type="PackedScene" uid="uid://yp7hlm3sgvkn" path="res://Scenes/room.tscn" id="2_5a7ea"]
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_5a7ea")
 
-[node name="room2" parent="." instance=ExtResource("3_8j60k")]
-transform = Transform3D(-1.7, 0, 1.48619e-07, 0, 1.7, 0, -1.48619e-07, 0, -1.7, 1.06206, -0.422271, 4.85721)
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.0617, 3.46778, 2.97016)
-spot_range = 10.9182
-spot_angle = 74.2236
-
-[node name="SpotLight3D2" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1.0617, 3.46778, 6.97016)
-spot_range = 10.9182
-spot_attenuation = 2.0
-spot_angle = 74.2236
+[node name="Room" parent="." instance=ExtResource("2_5a7ea")]
+transform = Transform3D(-1.7, 0, -1.48619e-07, 0, 1.7, 0, 1.48619e-07, 0, -1.7, 1.06206, -0.422271, 4.85721)
 
 [node name="BoxSpawn" type="Node3D" parent="."]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 2.285, 1.9, 6.336)
@@ -28,3 +17,6 @@ transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.26777, 0.671119, 7.85817)
 
 [node name="SafeHolder" type="Node3D" parent="."]
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.31863, 3.45801, 6.02733)

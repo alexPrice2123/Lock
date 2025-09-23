@@ -1,0 +1,164 @@
+[gd_scene load_steps=19 format=3 uid="uid://dxxartdfp23mj"]
+
+[ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_51j15"]
+[ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="2_wkxme"]
+[ext_resource type="PackedScene" uid="uid://cxopb3uhgn61k" path="res://Scenes/ComboLock.tscn" id="4_gpkg6"]
+[ext_resource type="PackedScene" uid="uid://yhafnm5hxw5e" path="res://Scenes/round_safe.tscn" id="4_wkxme"]
+[ext_resource type="PackedScene" uid="uid://dhscqkvvdrk50" path="res://Scenes/finger_lock.tscn" id="5_ve0hp"]
+[ext_resource type="PackedScene" uid="uid://cdld36yps3e2b" path="res://Scenes/keylock.tscn" id="6_gvx7j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jsg5"]
+albedo_color = Color(0.487662, 0.487662, 0.487662, 1)
+metallic = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k8se0"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_51j15"]
+flip_faces = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3jsg5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mttsr"]
+albedo_color = Color(1, 1, 0, 1)
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="Curve" id="Curve_qdbxb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bt42n"]
+curve = SubResource("Curve_qdbxb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_svx06"]
+lifetime_randomness = 1.0
+spread = 180.0
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+radial_velocity_min = 0.499978
+radial_velocity_max = 0.499978
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_bt42n")
+
+[sub_resource type="BoxMesh" id="BoxMesh_cjcnj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x8xjl"]
+size = Vector3(0.797852, 0.819, 0.165451)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m4dbt"]
+size = Vector3(0.372681, 0.441139, 0.210706)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ag2fg"]
+size = Vector3(0.797852, 0.819, 0.235191)
+
+[node name="box9" type="CharacterBody3D"]
+script = ExtResource("1_51j15")
+
+[node name="Glow" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.989829, 0, 0, 0, 1.39674e-08, 0.965083, 0, -0.468669, -1.99734e-08, 0, 0, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_3jsg5")
+material_overlay = SubResource("StandardMaterial3D_k8se0")
+mesh = SubResource("CylinderMesh_51j15")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0283079, 0)
+shape = SubResource("BoxShape3D_3jsg5")
+disabled = true
+
+[node name="Prompt" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.744856, 0)
+billboard = 1
+text = "Click To Select"
+font = ExtResource("2_wkxme")
+
+[node name="Opened" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0.000560426, -0.000597321, -0.000559995, 1, 0.000707333, 0.000597724, -0.000706993, 1, 0, 0.431865, 0)
+material_override = SubResource("StandardMaterial3D_mttsr")
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_svx06")
+draw_pass_1 = SubResource("BoxMesh_cjcnj")
+
+[node name="Box" parent="." instance=ExtResource("4_wkxme")]
+transform = Transform3D(-2.02384e-08, 0, -0.463, 0, 0.463, 0, 0.463, 0, -2.02384e-08, 0, 0, 0)
+
+[node name="ComboLock" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1, 0, 8.74226e-08, 0, 1, 0, -8.74226e-08, 0, -1, 0.0095603, 0, 0.115205)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ComboLock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0123138, 0.545723)
+shape = SubResource("BoxShape3D_x8xjl")
+
+[node name="Mesh" parent="ComboLock" instance=ExtResource("4_gpkg6")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.88178e-16, -0.0474944, 0.62455)
+
+[node name="FingerLock" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, -1.74846e-07, 0, 1.74846e-07, 1, -1.06581e-14, -7.64276e-15, 1.06581e-14, 1, 0.0042918, 0.0243256, -0.146376)
+
+[node name="Mesh" parent="FingerLock" instance=ExtResource("5_ve0hp")]
+transform = Transform3D(-0.000167194, 1.77352e-05, -0.103641, 0.000106403, 0.103641, 1.75631e-05, 0.103641, -0.000106375, -0.000167212, -0.000383793, -0.233676, 0.692967)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FingerLock"]
+transform = Transform3D(1, 1.98617e-35, 0, -8.14573e-29, 1, 0, 0, 0, 1, -0.00836175, -0.0140113, 0.568351)
+shape = SubResource("BoxShape3D_m4dbt")
+
+[node name="KeyLock" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1.03316e-07, -1.06581e-14, -1, -4.23516e-22, 1, -1.06581e-14, 1, -4.65882e-22, -1.03316e-07, 0.114601, 0.103181, -0.200408)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyLock"]
+transform = Transform3D(1, 0, 1.13886e-22, 0, 1, 0, 1.13886e-22, 0, 1, 0, -0.0123138, 0.580593)
+shape = SubResource("BoxShape3D_ag2fg")
+
+[node name="RotationPoint" type="Node3D" parent="KeyLock"]
+transform = Transform3D(1, -7.10543e-15, 3.19744e-14, 3.55271e-15, 1, -3.55271e-15, -3.55271e-15, 4.23517e-22, 1, -0.0061337, 0.148059, 0.62576)
+
+[node name="Mesh" parent="KeyLock/RotationPoint" instance=ExtResource("6_gvx7j")]
+transform = Transform3D(-2.70282e-07, 0, 2.61607, 0, 2.61607, 0, -2.61607, 0, -2.70282e-07, 0.000350379, -0.243938, 0.000301838)
+
+[node name="KeyLock2" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1.03316e-07, -1.06581e-14, -1, -4.23516e-22, 1, -1.06581e-14, 1, -4.65882e-22, -1.03316e-07, 0.114601, 0.103181, 0.223283)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyLock2"]
+transform = Transform3D(1, 0, 1.13886e-22, 0, 1, 0, 1.13886e-22, 0, 1, 0, -0.0123138, 0.580593)
+shape = SubResource("BoxShape3D_ag2fg")
+
+[node name="RotationPoint" type="Node3D" parent="KeyLock2"]
+transform = Transform3D(1, -7.10543e-15, 3.19744e-14, 3.55271e-15, 1, -3.55271e-15, -3.55271e-15, 4.23517e-22, 1, -0.0061337, 0.148059, 0.62576)
+
+[node name="Mesh" parent="KeyLock2/RotationPoint" instance=ExtResource("6_gvx7j")]
+transform = Transform3D(-2.70282e-07, 0, 2.61607, 0, 2.61607, 0, -2.61607, 0, -2.70282e-07, 0.000350379, -0.243938, 0.000301838)
+
+[node name="KeyLock3" type="CharacterBody3D" parent="."]
+transform = Transform3D(1.58932e-08, 1.06581e-14, 1, -4.23516e-22, 1, -1.06581e-14, -1, -4.65882e-22, 1.58932e-08, -0.0870677, 0.103181, 0.223283)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyLock3"]
+transform = Transform3D(1, 0, 1.13886e-22, 0, 1, 0, 1.13886e-22, 0, 1, 0, -0.0123138, 0.580593)
+shape = SubResource("BoxShape3D_ag2fg")
+
+[node name="RotationPoint" type="Node3D" parent="KeyLock3"]
+transform = Transform3D(1, -7.10543e-15, 3.19744e-14, 3.55271e-15, 1, -3.55271e-15, -3.55271e-15, 4.23517e-22, 1, -0.0061337, 0.148059, 0.62576)
+
+[node name="Mesh" parent="KeyLock3/RotationPoint" instance=ExtResource("6_gvx7j")]
+transform = Transform3D(-2.70282e-07, 0, 2.61607, 0, 2.61607, 0, -2.61607, 0, -2.70282e-07, 0.000350379, -0.243938, 0.000301838)
+
+[node name="KeyLock4" type="CharacterBody3D" parent="."]
+transform = Transform3D(1.58932e-08, 1.06581e-14, 1, -4.23516e-22, 1, -1.06581e-14, -1, -4.65882e-22, 1.58932e-08, -0.0870678, 0.103181, -0.200408)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KeyLock4"]
+transform = Transform3D(1, 0, 1.13886e-22, 0, 1, 0, 1.13886e-22, 0, 1, 0, -0.0123138, 0.580593)
+shape = SubResource("BoxShape3D_ag2fg")
+
+[node name="RotationPoint" type="Node3D" parent="KeyLock4"]
+transform = Transform3D(1, -7.10543e-15, 3.19744e-14, 3.55271e-15, 1, -3.55271e-15, -3.55271e-15, 4.23517e-22, 1, -0.0061337, 0.148059, 0.62576)
+
+[node name="Mesh" parent="KeyLock4/RotationPoint" instance=ExtResource("6_gvx7j")]
+transform = Transform3D(-2.70282e-07, 0, 2.61607, 0, 2.61607, 0, -2.61607, 0, -2.70282e-07, 0.000350379, -0.243938, 0.000301838)

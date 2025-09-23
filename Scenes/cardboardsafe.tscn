@@ -46,7 +46,7 @@ emission_energy_multiplier = 2.0
 
 [node name="cardboardsafe" instance=ExtResource("1_l1u5p")]
 
-[node name="top 1 " parent="." index="1"]
+[node name="top1 " parent="." index="1"]
 visible = false
 
 [node name="Top1" type="MeshInstance3D" parent="." index="2"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://ddpejrupelvbu"]
+[gd_scene load_steps=19 format=3 uid="uid://c7c38tgun6oig"]
 
-[ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_jgm3w"]
-[ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="2_m0u85"]
-[ext_resource type="PackedScene" uid="uid://w5ogpuqbgh0c" path="res://Scenes/first_safe.tscn" id="3_24vn4"]
-[ext_resource type="PackedScene" uid="uid://cxopb3uhgn61k" path="res://Scenes/ComboLock.tscn" id="4_m0u85"]
-[ext_resource type="PackedScene" uid="uid://cdld36yps3e2b" path="res://Scenes/keylock.tscn" id="5_lmobu"]
+[ext_resource type="Script" uid="uid://bhkry5h6rvxi5" path="res://Scripts/Safe.cs" id="1_r328l"]
+[ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="2_1qq5i"]
+[ext_resource type="PackedScene" uid="uid://w5ogpuqbgh0c" path="res://Scenes/first_safe.tscn" id="3_ag2fg"]
+[ext_resource type="PackedScene" uid="uid://cxopb3uhgn61k" path="res://Scenes/ComboLock.tscn" id="4_qv5ag"]
+[ext_resource type="PackedScene" uid="uid://dhscqkvvdrk50" path="res://Scenes/finger_lock.tscn" id="4_sj1hw"]
+[ext_resource type="PackedScene" uid="uid://cdld36yps3e2b" path="res://Scenes/keylock.tscn" id="5_exaea"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jsg5"]
 albedo_color = Color(0.487662, 0.487662, 0.487662, 1)
@@ -49,10 +50,16 @@ scale_curve = SubResource("CurveTexture_bt42n")
 [sub_resource type="BoxMesh" id="BoxMesh_cjcnj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x8xjl"]
-size = Vector3(0.495117, 0.603516, 0.188683)
+size = Vector3(0.797852, 0.819, 0.165451)
 
-[node name="box4" type="CharacterBody3D"]
-script = ExtResource("1_jgm3w")
+[sub_resource type="BoxShape3D" id="BoxShape3D_m4dbt"]
+size = Vector3(0.797852, 0.819, 0.227745)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ag2fg"]
+size = Vector3(0.797852, 0.819, 0.165451)
+
+[node name="box6" type="CharacterBody3D"]
+script = ExtResource("1_r328l")
 
 [node name="Glow" type="MeshInstance3D" parent="."]
 visible = false
@@ -70,7 +77,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.744856, 0)
 visible = false
 billboard = 1
 text = "Click To Select"
-font = ExtResource("2_m0u85")
+font = ExtResource("2_1qq5i")
 
 [node name="Opened" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0.000560426, -0.000597321, -0.000559995, 1, 0.000707333, 0.000597724, -0.000706993, 1, 0, 0.431865, 0)
@@ -82,28 +89,38 @@ explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_svx06")
 draw_pass_1 = SubResource("BoxMesh_cjcnj")
 
-[node name="Box" parent="." instance=ExtResource("3_24vn4")]
+[node name="Box" parent="." instance=ExtResource("3_ag2fg")]
 transform = Transform3D(-2.02294e-08, 0, -0.462794, 0, 0.462794, 0, 0.462794, 0, -2.02294e-08, 0, 0, 0)
 
 [node name="ComboLock" type="CharacterBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0873028, 0, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.00281473, 0, 0.11277)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ComboLock"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0123138, 0.545723)
 shape = SubResource("BoxShape3D_x8xjl")
 
-[node name="Mesh" parent="ComboLock" instance=ExtResource("4_m0u85")]
+[node name="Mesh" parent="ComboLock" instance=ExtResource("4_qv5ag")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -8.88178e-16, -0.0474944, 0.62455)
+
+[node name="FingerLock" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, -1.74846e-07, 0, 0, -4.37114e-08, -1, 1.74846e-07, 1, -4.37114e-08, 0.0042918, 0.112193, 0.0378481)
+
+[node name="Mesh" parent="FingerLock" instance=ExtResource("4_sj1hw")]
+transform = Transform3D(1.35909e-08, 2.04857e-23, -0.103641, 0, 0.103641, -1.20777e-22, 0.103641, 7.36414e-16, 1.35909e-08, -0.000383793, -0.233676, 0.692967)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FingerLock"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39698e-09, -0.0123138, 0.57687)
+shape = SubResource("BoxShape3D_m4dbt")
 
 [node name="KeyLock" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, -0.00116193, -5.96046e-08, -0.093244)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KeyLock"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.98492e-10, -0.0123138, 0.557339)
-shape = SubResource("BoxShape3D_x8xjl")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0123138, 0.545723)
+shape = SubResource("BoxShape3D_ag2fg")
 
 [node name="RotationPoint" type="Node3D" parent="KeyLock"]
 transform = Transform3D(1, -7.10543e-15, 3.19744e-14, 3.55271e-15, 1, -3.55271e-15, -3.55271e-15, 4.23517e-22, 1, -0.0061337, 0.148059, 0.62576)
 
-[node name="Mesh" parent="KeyLock/RotationPoint" instance=ExtResource("5_lmobu")]
+[node name="Mesh" parent="KeyLock/RotationPoint" instance=ExtResource("5_exaea")]
 transform = Transform3D(-2.70282e-07, 0, 2.61607, 0, 2.61607, 0, -2.61607, 0, -2.70282e-07, 0.000350379, -0.243938, 0.000301838)

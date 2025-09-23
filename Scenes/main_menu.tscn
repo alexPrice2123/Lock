@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=4 uid="uid://wauv8gf4wi3d"]
+[gd_scene load_steps=11 format=4 uid="uid://wauv8gf4wi3d"]
 
 [ext_resource type="Shader" uid="uid://6ofgupskwkd5" path="res://Scripts/cel.gdshader" id="1_48xlc"]
 [ext_resource type="Script" uid="uid://dnqmpql88wpsh" path="res://Scripts/MainMenu.cs" id="1_opfnp"]
 [ext_resource type="Shader" uid="uid://djlp3jdqg6gvs" path="res://Scripts/vig.gdshader" id="2_1ehe0"]
-[ext_resource type="Shader" uid="uid://dkgvbp0qqdpf0" path="res://Scripts/transition.gdshader" id="2_n45e2"]
 [ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="4_ce3w2"]
-[ext_resource type="Texture2D" uid="uid://bsj8semvv73d1" path="res://Assets/2D/UI ART/TITLE FINISHED.png" id="6_opfnp"]
+[ext_resource type="Texture2D" uid="uid://bsj8semvv73d1" path="res://Assets/2D/UI ART/Title.png" id="6_opfnp"]
+[ext_resource type="Texture2D" uid="uid://bjsqndlrfc6dv" path="res://Assets/2D/UI ART/volumeup.png" id="7_cp0ys"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("1_48xlc")
@@ -16,9 +16,41 @@ shader_parameter/direction = 1
 shader_parameter/stripe_colors = PackedVector4Array(0.937, 0.839, 0.839, 0, 0.624, 0.549, 0.549, 0, 0.463, 0.394, 0.424, 0)
 shader_parameter/color_count = 3
 
+[sub_resource type="Shader" id="Shader_opfnp"]
+code = "shader_type canvas_item;
+
+
+
+
+// Ranges from 0 to 1 over the course of the transition.
+// We use this to actually animate the shader.
+uniform float progress : hint_range(0, 1);
+
+
+
+
+// Size of each diamond, in pixels.
+uniform float diamondPixelSize = 10.0;
+
+
+
+
+float when_lt(float x, float y) {
+  return max(sign(y - x), 0.0);
+}
+
+
+void fragment() {
+	float xFraction = fract(FRAGCOORD.x / diamondPixelSize);
+	float yFraction = fract(FRAGCOORD.y / diamondPixelSize);
+	float xDistance = abs(xFraction - 0.5);
+	float yDistance = abs(yFraction - 0.5);
+	COLOR.a *=  when_lt(xDistance + yDistance + UV.x + UV.y, progress * 4.0);
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_opfnp"]
-shader = ExtResource("2_n45e2")
-shader_parameter/progress = 0.99
+shader = SubResource("Shader_opfnp")
+shader_parameter/progress = 1.0
 shader_parameter/diamondPixelSize = 60.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ce3w2"]
@@ -37,6 +69,7 @@ grow_vertical = 2
 script = ExtResource("1_opfnp")
 
 [node name="Background" type="ColorRect" parent="."]
+z_index = -2
 material = SubResource("ShaderMaterial_1ehe0")
 layout_mode = 1
 anchors_preset = 15
@@ -88,5 +121,43 @@ icon_alignment = 1
 [node name="TitleFinished" type="Sprite2D" parent="."]
 position = Vector2(576, 157.13)
 texture = ExtResource("6_opfnp")
+
+[node name="SoundWarn" type="Control" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_opfnp")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SoundWarn"]
+z_index = 101
+material = SubResource("ShaderMaterial_opfnp")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -416.0
+offset_top = -264.0
+offset_right = 417.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("4_ce3w2")
+theme_override_font_sizes/font_size = 75
+text = "Sound Recommended"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Volumeup" type="Sprite2D" parent="SoundWarn"]
+z_index = 101
+material = SubResource("ShaderMaterial_opfnp")
+position = Vector2(576, 281)
+texture = ExtResource("7_cp0ys")
 
 [connection signal="button_up" from="Play" to="." method="_on_play_button_up"]

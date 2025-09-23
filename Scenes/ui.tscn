@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://cli8n3lygnumt"]
+[gd_scene load_steps=10 format=3 uid="uid://cli8n3lygnumt"]
 
 [ext_resource type="Script" uid="uid://bmey5khw3e3he" path="res://Scripts/Ui.cs" id="1_qdvrb"]
-[ext_resource type="Texture2D" uid="uid://b8nvr5l52yu1i" path="res://Assets/2D/UI ART/UI arrow background.png" id="2_qdvrb"]
-[ext_resource type="Texture2D" uid="uid://bobv0f4qs3rs3" path="res://Assets/2D/UI ART/UI arrow.png" id="3_nf4gj"]
-[ext_resource type="Texture2D" uid="uid://fbivaiy36est" path="res://Assets/2D/UI ART/UI D BUTTON.png" id="4_2246s"]
-[ext_resource type="Texture2D" uid="uid://clqnu5m6p13ti" path="res://Assets/2D/UI ART/UI A BUTTON.png" id="5_q7pk6"]
+[ext_resource type="Texture2D" uid="uid://b8nvr5l52yu1i" path="res://Assets/2D/UI ART/UIButton.png" id="2_qdvrb"]
+[ext_resource type="Texture2D" uid="uid://bobv0f4qs3rs3" path="res://Assets/2D/UI ART/Arrow.png" id="3_nf4gj"]
+[ext_resource type="Texture2D" uid="uid://fbivaiy36est" path="res://Assets/2D/UI ART/DButton.png" id="4_2246s"]
+[ext_resource type="Texture2D" uid="uid://clqnu5m6p13ti" path="res://Assets/2D/UI ART/AButton.png" id="5_q7pk6"]
 [ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="6_m78vo"]
 [ext_resource type="Shader" uid="uid://dkgvbp0qqdpf0" path="res://Scripts/transition.gdshader" id="7_smcll"]
+[ext_resource type="Texture2D" uid="uid://bjsqndlrfc6dv" path="res://Assets/2D/UI ART/volumeup.png" id="8_ryf15"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_smcll"]
 shader = ExtResource("7_smcll")
@@ -564,7 +565,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Transition" type="ColorRect" parent="."]
-visible = false
 z_index = 100
 texture_filter = 1
 material = SubResource("ShaderMaterial_smcll")
@@ -575,6 +575,43 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="SoundWarn" type="Control" parent="Transition"]
+material = SubResource("ShaderMaterial_smcll")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Transition/SoundWarn"]
+z_index = 101
+material = SubResource("ShaderMaterial_smcll")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -416.0
+offset_top = -264.0
+offset_right = 417.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 25
+theme_override_fonts/font = ExtResource("6_m78vo")
+theme_override_font_sizes/font_size = 75
+text = "Sound Recommended"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Volumeup" type="Sprite2D" parent="Transition/SoundWarn"]
+z_index = 101
+material = SubResource("ShaderMaterial_smcll")
+position = Vector2(576, 281)
+texture = ExtResource("8_ryf15")
 
 [node name="Screws" type="Control" parent="."]
 visible = false

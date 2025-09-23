@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du8n12b7u2wpn"
-path.s3tc="res://.godot/imported/LOCK IN poster 3000 by 3700 px.png-b1742469080ca00de87ebfcc85575af5.s3tc.ctex"
+uid="uid://dbr2rx1ijh7rt"
+path.s3tc="res://.godot/imported/carpet.jpg-002963759ff89923d6948b8e0f8f0c5f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/2D/ASSET TEXTURES/LOCK IN poster 3000 by 3700 px.png"
-dest_files=["res://.godot/imported/LOCK IN poster 3000 by 3700 px.png-b1742469080ca00de87ebfcc85575af5.s3tc.ctex"]
+source_file="res://Assets/2D/carpet.jpg"
+dest_files=["res://.godot/imported/carpet.jpg-002963759ff89923d6948b8e0f8f0c5f.s3tc.ctex"]
 
 [params]
 

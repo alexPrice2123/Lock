@@ -32,25 +32,47 @@ public partial class Safe : CharacterBody3D
         {
             _money = 100f;
             _moneyLossPF = 0.05f;
-            NoNumbers();
         }
         else if (Name == "box2")
         {
             _money = 100f * 2f;
             _moneyLossPF = 0.05f * 1.5f;
-            NoNumbers();
         }
         else if (Name == "box3")
         {
             _money = 100f * 4f;
             _moneyLossPF = 0.05f * (1.5f * 2f);
-            NoNumbers();
         }
-        else if (Name == "box3")
+        else if (Name == "box4")
         {
             _money = 100f * 8f;
             _moneyLossPF = 0.05f * (1.5f * 3f);
-            SomeNumbers(notBox1, notBox2);
+        }
+        else if (Name == "box5")
+        {
+            _money = 100f * 16f;
+            _moneyLossPF = 0.05f * (1.5f * 4f);
+        }
+        else if (Name == "box6")
+        {
+            _money = 100f * 32f;
+            _moneyLossPF = 0.05f * (1.5f * 7f);
+        }
+        else if (Name == "box7")
+        {
+            GetNode<MeshInstance3D>("Box/Hat").Visible = true;
+            _money = 100f * 64f;
+            _moneyLossPF = 0.05f * (1.5f * 10f);
+        }
+        else if (Name == "box8")
+        {
+            _money = 100f * 128f;
+            _moneyLossPF = 0.05f * (1.5f * 30f);
+        }
+        else if (Name == "box9")
+        {
+            _money = 100f * 258f;
+            _moneyLossPF = 0.05f * (1.5f * 50f);
         }
     }
     public override void _PhysicsProcess(double delta)
@@ -60,18 +82,5 @@ public partial class Safe : CharacterBody3D
             looking = true;
             _direction = GlobalRotation;
         }
-    }
-
-    public void NoNumbers()
-    {
-        for (int i = 0; i <= 6; i++)
-        {
-           GetNode<Label3D>("Number" + i).Visible = false; 
-        }
-    }
-    public void SomeNumbers(int notBox1, int notBox2)
-    {
-        GetNode<Label3D>("Number" + notBox1).Visible = false;
-        GetNode<Label3D>("Number" + notBox2).Visible = false;
     }
 }

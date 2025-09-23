@@ -1,7 +1,7 @@
 [gd_scene load_steps=25 format=4 uid="uid://cdld36yps3e2b"]
 
-[ext_resource type="PackedScene" uid="uid://cwwe4g7ywgjld" path="res://callensblendfiles/normallock.blend" id="1_hq4px"]
-[ext_resource type="Material" uid="uid://bliu26vslffs7" path="res://callensblendfiles/ComboBaseMat.tres" id="2_oni4y"]
+[ext_resource type="PackedScene" uid="uid://cwwe4g7ywgjld" path="res://Assets/callensblendfiles/normallock.blend" id="1_hq4px"]
+[ext_resource type="Material" uid="uid://bliu26vslffs7" path="res://Assets/callensblendfiles/ComboBaseMat.tres" id="2_oni4y"]
 [ext_resource type="Material" uid="uid://c7mvotr13e3de" path="res://Assets/3D/BoxMat.tres" id="3_q3ui4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3v1g5"]
@@ -96,7 +96,7 @@ inner_radius = 0.107
 outer_radius = 0.773
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hq4px"]
-size = Vector3(0.703857, 9.04395, 0.0869141)
+size = Vector3(0.703857, 9.04395, 0.112305)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q3ui4"]
 emission_enabled = true
@@ -191,7 +191,7 @@ emission = Color(1, 1, 1, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_vlndq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3v1g5"]
-size = Vector3(0.328125, 9.04395, 0.0869141)
+size = Vector3(0.506496, 9.04395, 0.142822)
 
 [node name="Keylock" instance=ExtResource("1_hq4px")]
 
@@ -258,10 +258,11 @@ material_override = SubResource("StandardMaterial3D_5fwul")
 mesh = SubResource("SphereMesh_vlndq")
 skeleton = NodePath("../..")
 
-[node name="Hole" type="Area3D" parent="MiniGame/Hole" index="1"]
+[node name="Hole2" type="Area3D" parent="MiniGame/Hole" index="1"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniGame/Hole/Hole" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.999997, 0, 0, 0, 1, 0.537768, 0, -9.31323e-10)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniGame/Hole/Hole2" index="0"]
+transform = Transform3D(1, 0, -8.19564e-07, 0, 0.999998, 0, 8.19564e-07, 0, 1, 0.448582, 0, 1.63913e-07)
 shape = SubResource("BoxShape3D_3v1g5")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="MiniGame" index="2"]
