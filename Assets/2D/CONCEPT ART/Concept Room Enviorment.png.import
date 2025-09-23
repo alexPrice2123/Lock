@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvtdoi7v6svl0"
-path="res://.godot/imported/Concept_Room_Enviorment.png-e0bc313f35f8eb8ba7676f300b2f819a.ctex"
+path="res://.godot/imported/Concept Room Enviorment.png-487cdb01ffa627662ae38893e58006e2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/2D/CONCEPT_ART/Concept_Room_Enviorment.png"
-dest_files=["res://.godot/imported/Concept_Room_Enviorment.png-e0bc313f35f8eb8ba7676f300b2f819a.ctex"]
+source_file="res://Assets/2D/CONCEPT ART/Concept Room Enviorment.png"
+dest_files=["res://.godot/imported/Concept Room Enviorment.png-487cdb01ffa627662ae38893e58006e2.ctex"]
 
 [params]
 

@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cli8n3lygnumt"]
 
 [ext_resource type="Script" uid="uid://bmey5khw3e3he" path="res://Scripts/Ui.cs" id="1_qdvrb"]
-[ext_resource type="Texture2D" path="res://Assets/2D/UI ART/UI arrow background.png" id="2_qdvrb"]
-[ext_resource type="Texture2D" path="res://Assets/2D/UI ART/UI arrow.png" id="3_nf4gj"]
-[ext_resource type="Texture2D" path="res://Assets/2D/UI ART/UI D BUTTON.png" id="4_2246s"]
-[ext_resource type="Texture2D" path="res://Assets/2D/UI ART/UI A BUTTON.png" id="5_q7pk6"]
+[ext_resource type="Texture2D" uid="uid://b8nvr5l52yu1i" path="res://Assets/2D/UI ART/UI arrow background.png" id="2_qdvrb"]
+[ext_resource type="Texture2D" uid="uid://bobv0f4qs3rs3" path="res://Assets/2D/UI ART/UI arrow.png" id="3_nf4gj"]
+[ext_resource type="Texture2D" uid="uid://fbivaiy36est" path="res://Assets/2D/UI ART/UI D BUTTON.png" id="4_2246s"]
+[ext_resource type="Texture2D" uid="uid://clqnu5m6p13ti" path="res://Assets/2D/UI ART/UI A BUTTON.png" id="5_q7pk6"]
 [ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="6_m78vo"]
 [ext_resource type="Shader" uid="uid://dkgvbp0qqdpf0" path="res://Scripts/transition.gdshader" id="7_smcll"]
 

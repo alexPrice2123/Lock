@@ -5,7 +5,7 @@
 [ext_resource type="Shader" uid="uid://djlp3jdqg6gvs" path="res://Scripts/vig.gdshader" id="2_1ehe0"]
 [ext_resource type="Shader" uid="uid://dkgvbp0qqdpf0" path="res://Scripts/transition.gdshader" id="2_n45e2"]
 [ext_resource type="FontFile" uid="uid://dfncv1x0tyikq" path="res://Assets/KiwiSoda.ttf" id="4_ce3w2"]
-[ext_resource type="Texture2D" path="res://Assets/2D/UI ART/TITLE FINISHED.png" id="6_opfnp"]
+[ext_resource type="Texture2D" uid="uid://bsj8semvv73d1" path="res://Assets/2D/UI ART/TITLE FINISHED.png" id="6_opfnp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ehe0"]
 shader = ExtResource("1_48xlc")
@@ -47,7 +47,6 @@ grow_vertical = 2
 color = Color(0.462745, 0.392157, 0.423529, 1)
 
 [node name="Transition" type="ColorRect" parent="."]
-visible = false
 z_index = 100
 material = SubResource("ShaderMaterial_opfnp")
 layout_mode = 1
